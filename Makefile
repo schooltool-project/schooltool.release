@@ -11,16 +11,13 @@ all: bin/test
 python:
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
-build/.bzr:
-	bzr init-repo build
-
-build/schooltool: build/.bzr
+build/schooltool:
 	bzr co --lightweight http://staging.schooltool.org/bzr2/schooltool/schooltool/branches/2008.04/ build/schooltool
 
-build/schooltool.gradebook: build/.bzr
+build/schooltool.gradebook:
 	bzr co --lightweight http://staging.schooltool.org/bzr2/schooltool/schooltool.gradebook/branches/0.2/ build/schooltool.gradebook
 
-build/schooltool.lyceum.journal: build/.bzr
+build/schooltool.lyceum.journal:
 	bzr co --lightweight http://staging.schooltool.org/bzr2/schooltool/schooltool.lyceum.journal/branches/0.1/ build/schooltool.lyceum.journal
 
 bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal
