@@ -1,0 +1,10 @@
+.installed.cfg
+bin
+develop-eggs
+parts
+python
+build
+build/schooltool
+build/schooltool.gradebook
+build/schooltool.lyceum.journal
+build/.bzr
