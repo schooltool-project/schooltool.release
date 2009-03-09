@@ -130,14 +130,30 @@ update-translations: extract-translations
 
 .PHONY: release
 release: compile-translations
-	echo -n `sed -e 's/\n//' version.txt.in` > version.txt
-	echo -n "_r" >> version.txt
-	bzr revno >> version.txt
-	bin/buildout setup setup.py sdist
+	release=build/schooltool; \
+	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
+	echo -n "_r" >> $${release}/version.txt; \
+	bzr revno $${release} >> $${release}/version.txt; \
+	bin/buildout setup $${release}/setup.py sdist
+	release=build/schooltool.gradebook; \
+	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
+	echo -n "_r" >> $${release}/version.txt; \
+	bzr revno $${release} >> $${release}/version.txt; \
+	bin/buildout setup $${release}/setup.py sdist
+	release=build/schooltool.lyceum.journal; \
+	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
+	echo -n "_r" >> $${release}/version.txt; \
+	bzr revno $${release} >> $${release}/version.txt; \
+	bin/buildout setup $${release}/setup.py sdist
 
 .PHONY: move-release
 move-release:
-	 mv dist/schooltool-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool; \
+	mv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.gradebook; \
+	mv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool,lyceum.journal; \
+	mv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 
 # Helpers
 
@@ -157,18 +173,5 @@ ubuntu-environment:
 .PHONY: clean
 clean:
 	rm -rf python develop-eggs bin parts .installed.cfg build/*
-
-
-
-###
-# To release:
-#   make bootstrap
-#   make release
-#   make move-release
-#
-# To test:
-#   make
-#   make update
-#   make test
 
 
