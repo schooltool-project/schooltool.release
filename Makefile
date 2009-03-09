@@ -114,11 +114,11 @@ compile-translations:
 .PHONY: update-translations
 update-translations: extract-translations
 	set -e; \
-	locales=src/schooltool/commendation/locales; \
+	locales=build/schooltool/src/schooltool/commendation/locales; \
 	for f in $${locales}/*/LC_MESSAGES/schooltool.commendation.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.commendation.pot ;\
 	done
-	locales=src/schooltool/locales; \
+	locales=build/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*/LC_MESSAGES/schooltool.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.pot ;\
 	done
