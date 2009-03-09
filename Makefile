@@ -6,9 +6,10 @@
 BOOTSTRAP_PYTHON=python2.4
 
 .PHONY: all
-all: bin/test
+all: bin/test-all
 
-python:
+.PHONY: bootstrap
+bootstrap:
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
@@ -26,7 +27,16 @@ build/schooltool.lyceum.journal: build/.bzr
 bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
-bin/test: bin/buildout
+bin/test-all: bin/buildout
+	bin/buildout
+
+bin/test-schooltool: bin/buildout
+	bin/buildout
+
+bin/test-gradebook: bin/buildout
+	bin/buildout
+
+bin/test-journal: bin/buildout
 	bin/buildout
 
 bin/coverage:
@@ -39,37 +49,22 @@ buildout: bin/buildout
 .PHONY: update
 update: bin/buildout
 	bin/buildout -n
-
-bin/make-schooltool-instance: bin/buildout
-	bin/buildout
-
-instance: bin/make-schooltool-instance
-	bin/make-schooltool-instance instance instance_type=schooltool.stapp2008spring
+	bzr up build/schooltool
+	bzr up build/schooltool.gradebook
+	bzr up build/schooltool.lyceum.journal
 
 .PHONY: test
-test: bin/test
-	bin/test -u
-
-.PHONY: testall
-testall: bin/test
-	bin/test
-
-.PHONY: ftest
-ftest: bin/test
-	bin/test -f --at-level 2
-
-.PHONY: run
-run: instance bin/start-schooltool-instance
-	bin/start-schooltool-instance instance
+test: bin/test-all
+	bin/test-all -uf --at-level 2
 
 .PHONY: clean
 clean:
-	rm -rf python develop-eggs bin parts .installed.cfg TAGS tags ID
+	rm -rf python develop-eggs bin parts .installed.cfg build/*
 
 .PHONY: coverage
-coverage: bin/test
+coverage: bin/test-all
 	rm -rf coverage
-	bin/test -u --coverage=coverage
+	bin/test-all -u --coverage=coverage
 	mv parts/test/coverage .
 	@cd coverage && ls | grep -v tests | xargs grep -c '^>>>>>>' | grep -v ':0$$'
 
@@ -94,8 +89,6 @@ ubuntu-environment:
 	} fi
 
 
-
-
 ###
 # To release:
 #   make bootstrap
@@ -106,4 +99,4 @@ ubuntu-environment:
 #   make
 #   make update
 #   make test
-#   make ftest
+
