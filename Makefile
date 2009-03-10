@@ -153,11 +153,11 @@ release: compile-translations bin/buildout
 .PHONY: move-release
 move-release:
 	package=schooltool; \
-	mv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.gradebook; \
-	mv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
-	package=schooltool,lyceum.journal; \
-	mv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.lyceum.journal; \
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 
 # Helpers
 
