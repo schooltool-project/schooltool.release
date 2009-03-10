@@ -61,13 +61,17 @@ update: bin/buildout
 test: bin/test-all
 	bin/test-all -uf --at-level 2
 
+.PHONY: ftest
+ftest:
+	echo "Pass"
+
 # Coverage
 
 .PHONY: coverage
 coverage: bin/test-all
 	rm -rf coverage
 	bin/test-all -u --coverage=coverage
-	mv parts/test/coverage .
+	mv parts/test-all/coverage .
 	@cd coverage && ls | grep -v tests | xargs grep -c '^>>>>>>' | grep -v ':0$$'
 
 .PHONY: coverage-reports-html
