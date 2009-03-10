@@ -11,7 +11,7 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap:
+bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
