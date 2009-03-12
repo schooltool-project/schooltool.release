@@ -18,13 +18,13 @@ build/.bzr:
 	bzr init-repo build
 
 build/schooltool: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool/branches/2008.04/ build/schooltool
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool/trunk/ build/schooltool
 
 build/schooltool.gradebook: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.gradebook/branches/0.2/ build/schooltool.gradebook
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.gradebook/trunk/ build/schooltool.gradebook
 
 build/schooltool.lyceum.journal: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.lyceum.journal/branches/0.1/ build/schooltool.lyceum.journal
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
 
 bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal
 	$(BOOTSTRAP_PYTHON) bootstrap.py
