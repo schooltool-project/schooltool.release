@@ -172,6 +172,10 @@ release: compile-translations bin/buildout
 	echo -n "_r" >> $${release}/version.txt; \
 	bzr revno $${release} >> $${release}/version.txt; \
 	bin/buildout setup $${release}/setup.py sdist
+	bin/buildout setup build/schooltool.ldap/setup.py sdist
+	bin/buildout setup build/schooltool.cas/setup.py sdist
+	bin/buildout setup build/schooltool.stapp2008fall/setup.py sdist
+	bin/buildout setup build/schooltool.stapp2008spring/setup.py sdist
 
 .PHONY: move-release
 move-release:
@@ -180,6 +184,14 @@ move-release:
 	package=schooltool.gradebook; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.lyceum.journal; \
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.ldap; \
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.cas; \
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.stapp2008fall; \
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.stapp2008spring; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 
 # Helpers
