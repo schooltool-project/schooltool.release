@@ -11,7 +11,7 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal
+bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.ldap build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
@@ -26,7 +26,19 @@ build/schooltool.gradebook: build/.bzr
 build/schooltool.lyceum.journal: build/.bzr
 	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
 
-bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal
+build/schooltool.stapp2008spring: build/.bzr
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.stapp2008spring/trunk/ build/schooltool.stapp2008spring
+
+build/schooltool.stapp2008fall: build/.bzr
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.stapp2008fall/trunk/ build/schooltool.stapp2008fall
+
+build/schooltool.cas: build/.bzr
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.cas/trunk/ build/schooltool.cas
+
+build/schooltool.ldap: build/.bzr
+	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.ldap/trunk/ build/schooltool.ldap
+
+bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.ldap build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 bin/test-all: bin/buildout
@@ -50,16 +62,27 @@ buildout: bin/buildout
 
 .PHONY: update
 update: bin/buildout
-	bin/buildout -n
 	bzr up build/schooltool
 	bzr up build/schooltool.gradebook
 	bzr up build/schooltool.lyceum.journal
+	bzr up build/schooltool.ldap
+	bzr up build/schooltool.cas
+	bzr up build/schooltool.stapp2008fall
+	bzr up build/schooltool.stapp2008spring
+	bin/buildout -n
 
 # Tests
 
 .PHONY: test
 test: bin/test-all
 	bin/test-all -uf --at-level 2
+	bin/test-schooltool
+	bin/test-gradebook
+	bin/test-journal
+	bin/test-ldap
+	bin/test-cas
+	bin/test-stapp2008fall
+	bin/test-stapp2008spring
 
 .PHONY: ftest
 ftest:

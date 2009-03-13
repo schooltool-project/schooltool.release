@@ -8,3 +8,7 @@ build/schooltool
 build/schooltool.gradebook
 build/schooltool.lyceum.journal
 build/.bzr
+build/schooltool.stapp2008spring
+build/schooltool.stapp2008fall
+build/schooltool.ldap
+build/schooltool.cas
