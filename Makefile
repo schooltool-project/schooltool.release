@@ -11,7 +11,7 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.ldap build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
+bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
@@ -35,10 +35,7 @@ build/schooltool.stapp2008fall: build/.bzr
 build/schooltool.cas: build/.bzr
 	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.cas/trunk/ build/schooltool.cas
 
-build/schooltool.ldap: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.ldap/trunk/ build/schooltool.ldap
-
-bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.ldap build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
+bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 bin/test-all: bin/buildout
@@ -65,7 +62,6 @@ update: bin/buildout
 	bzr up build/schooltool
 	bzr up build/schooltool.gradebook
 	bzr up build/schooltool.lyceum.journal
-	bzr up build/schooltool.ldap
 	bzr up build/schooltool.cas
 	bzr up build/schooltool.stapp2008fall
 	bzr up build/schooltool.stapp2008spring
@@ -79,7 +75,6 @@ test: bin/test-all
 	bin/test-schooltool
 	bin/test-gradebook
 	bin/test-journal
-	bin/test-ldap
 	bin/test-cas
 	bin/test-stapp2008fall
 	bin/test-stapp2008spring
@@ -172,7 +167,6 @@ release: compile-translations bin/buildout
 	echo -n "_r" >> $${release}/version.txt; \
 	bzr revno $${release} >> $${release}/version.txt; \
 	bin/buildout setup $${release}/setup.py sdist
-	bin/buildout setup build/schooltool.ldap/setup.py sdist
 	bin/buildout setup build/schooltool.cas/setup.py sdist
 	bin/buildout setup build/schooltool.stapp2008fall/setup.py sdist
 	bin/buildout setup build/schooltool.stapp2008spring/setup.py sdist
@@ -184,8 +178,6 @@ move-release:
 	package=schooltool.gradebook; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.lyceum.journal; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
-	package=schooltool.ldap; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.cas; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
