@@ -57,14 +57,17 @@ bin/coverage:
 buildout: bin/buildout
 	bin/buildout
 
-.PHONY: update
-update: bin/buildout
+.PHONY: bzrupdate
+bzrupdate:
 	bzr up build/schooltool
 	bzr up build/schooltool.gradebook
 	bzr up build/schooltool.lyceum.journal
 	bzr up build/schooltool.cas
 	bzr up build/schooltool.stapp2008fall
 	bzr up build/schooltool.stapp2008spring
+
+.PHONY: update
+update: bin/buildout bzrupdate
 	bin/buildout -n
 
 # Tests
