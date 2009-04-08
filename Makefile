@@ -107,17 +107,22 @@ coverage-reports-html: bin/coverage
 .PHONY: extract-translations
 extract-translations: build
 	bin/i18nextract --egg schooltool \
+	                --egg schooltool.gradebook \
+			--egg schooltool.lyceum.journal \
 	                --domain schooltool \
+	                --zcml-egg schooltool \
 	                --zcml schooltool/common/translations.zcml \
                         --output-file build/schooltool/src/schooltool/locales/schooltool.pot
 	bin/i18nextract --egg schooltool \
                         --domain schooltool.commendation \
+	                --zcml-egg schooltool \
                         --zcml schooltool/commendation/translations.zcml \
 			--output-file build/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
 	bin/i18nextract --egg schooltool.lyceum.journal \
-			 --domain schooltool.lyceum.journal \
-			 --zcml schooltool/lyceum/journal/translation.zcml \
-			 --output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
+			--domain schooltool.lyceum.journal \
+			--zcml-egg schooltool.lyceum.journal \
+			--zcml schooltool/lyceum/journal/translation.zcml \
+			--output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
 
 .PHONY: compile-translations
 compile-translations:
