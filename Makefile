@@ -3,7 +3,7 @@
 # Makefile for 2008.04 buildbot
 #
 
-BOOTSTRAP_PYTHON=python2.4
+BOOTSTRAP_PYTHON=python2.5
 
 .PHONY: all
 all: bin/test-all
