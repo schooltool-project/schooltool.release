@@ -4,6 +4,7 @@
 #
 
 BOOTSTRAP_PYTHON=python2.5
+BZR_REPOSITORY='http://source.schooltool.org/var/local/bzr/schooltool'
 
 .PHONY: all
 all: bin/test-all
@@ -18,22 +19,22 @@ build/.bzr:
 	bzr init-repo build
 
 build/schooltool: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool/trunk/ build/schooltool
+	bzr co $(BZR_REPOSITORY)/schooltool/trunk/ build/schooltool
 
 build/schooltool.gradebook: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.gradebook/trunk/ build/schooltool.gradebook
+	bzr co $(BZR_REPOSITORY)/schooltool.gradebook/trunk/ build/schooltool.gradebook
 
 build/schooltool.lyceum.journal: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
+	bzr co $(BZR_REPOSITORY)/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
 
 build/schooltool.stapp2008spring: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.stapp2008spring/trunk/ build/schooltool.stapp2008spring
+	bzr co $(BZR_REPOSITORY)/schooltool.stapp2008spring/trunk/ build/schooltool.stapp2008spring
 
 build/schooltool.stapp2008fall: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.stapp2008fall/trunk/ build/schooltool.stapp2008fall
+	bzr co $(BZR_REPOSITORY)/schooltool.stapp2008fall/trunk/ build/schooltool.stapp2008fall
 
 build/schooltool.cas: build/.bzr
-	bzr co http://staging.schooltool.org/bzr2/schooltool/schooltool.cas/trunk/ build/schooltool.cas
+	bzr co $(BZR_REPOSITORY)/schooltool.cas/trunk/ build/schooltool.cas
 
 bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
