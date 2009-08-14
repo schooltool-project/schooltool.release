@@ -12,7 +12,7 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
+bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
@@ -23,6 +23,9 @@ build/schooltool: build/.bzr
 
 build/schooltool.gradebook: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.gradebook/trunk/ build/schooltool.gradebook
+
+build/schooltool.intervention: build/.bzr
+	bzr co $(BZR_REPOSITORY)/schooltool.intervention/trunk/ build/schooltool.intervention
 
 build/schooltool.lyceum.journal: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
@@ -36,7 +39,7 @@ build/schooltool.stapp2008fall: build/.bzr
 build/schooltool.cas: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.cas/trunk/ build/schooltool.cas
 
-bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
+bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 bin/test-all: bin/buildout
@@ -46,6 +49,9 @@ bin/test-schooltool: bin/buildout
 	bin/buildout
 
 bin/test-gradebook: bin/buildout
+	bin/buildout
+
+bin/test-intervention: bin/buildout
 	bin/buildout
 
 bin/test-journal: bin/buildout
@@ -62,6 +68,7 @@ buildout: bin/buildout
 bzrupdate:
 	bzr up build/schooltool
 	bzr up build/schooltool.gradebook
+	bzr up build/schooltool.intervention
 	bzr up build/schooltool.lyceum.journal
 	bzr up build/schooltool.cas
 	bzr up build/schooltool.stapp2008fall
@@ -74,10 +81,11 @@ update: bin/buildout bzrupdate
 # Tests
 
 .PHONY: test
-test: bin/test-all
+test: bin/test-all bin/test-schooltool bin/test-gradebook bin/test-intervention bin/test-journal bin/test-cas bin/test-stapp2008fall bin/test-stapp2008spring
 	bin/test-all -uf --at-level 2
 	bin/test-schooltool
 	bin/test-gradebook
+	bin/test-intervention
 	bin/test-journal
 	bin/test-cas
 	bin/test-stapp2008fall
@@ -171,6 +179,11 @@ release: compile-translations bin/buildout
 	echo -n "_r" >> $${release}/version.txt; \
 	bzr revno $${release} >> $${release}/version.txt; \
 	bin/buildout setup $${release}/setup.py sdist
+	release=build/schooltool.intervention; \
+	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
+	echo -n "_r" >> $${release}/version.txt; \
+	bzr revno $${release} >> $${release}/version.txt; \
+	bin/buildout setup $${release}/setup.py sdist
 	release=build/schooltool.lyceum.journal; \
 	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
 	echo -n "_r" >> $${release}/version.txt; \
@@ -187,6 +200,8 @@ move-release:
 	package=schooltool; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.gradebook; \
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	package=schooltool.intervention; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.lyceum.journal; \
 	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
