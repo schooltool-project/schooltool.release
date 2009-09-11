@@ -229,6 +229,6 @@ ubuntu-environment:
 
 .PHONY: clean
 clean:
-	rm -rf python develop-eggs bin parts .installed.cfg build/*
+	rm -rf python develop-eggs bin parts .installed.cfg
 
 
