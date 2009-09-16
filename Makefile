@@ -117,7 +117,6 @@ coverage-reports-html: bin/coverage
 extract-translations: build
 	bin/i18nextract --egg schooltool \
 	                --egg schooltool.gradebook \
-			--egg schooltool.lyceum.journal \
 	                --domain schooltool \
 	                --zcml-egg schooltool \
 	                --zcml schooltool/common/translations.zcml \
@@ -230,5 +229,4 @@ ubuntu-environment:
 .PHONY: clean
 clean:
 	rm -rf python develop-eggs bin parts .installed.cfg
-
 
