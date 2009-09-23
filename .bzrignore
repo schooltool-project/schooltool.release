@@ -3,4 +3,11 @@
 ./develop-eggs
 ./parts
 ./python
-./build/*
+./build/.bzr
+./build/schooltool
+./build/schooltool.cas
+./build/schooltool.gradebook
+./build/schooltool.intervention
+./build/schooltool.lyceum.journal
+./build/schooltool.stapp2008fall
+./build/schooltool.stapp2008spring
