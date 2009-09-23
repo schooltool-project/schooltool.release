@@ -19,10 +19,10 @@ build/.bzr:
 	bzr init-repo build
 
 build/schooltool: build/.bzr
-	bzr co $(BZR_REPOSITORY)/schooltool/trunk/ build/schooltool
+	bzr co http://bazaar.launchpad.net/~schooltool-owners/schooltool/trunk/ build/schooltool
 
 build/schooltool.gradebook: build/.bzr
-	bzr co $(BZR_REPOSITORY)/schooltool.gradebook/trunk/ build/schooltool.gradebook
+	bzr co http://bazaar.launchpad.net/~schooltool-owners/schooltool.gradebook/trunk/ build/schooltool.gradebook
 
 build/schooltool.intervention: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.intervention/trunk/ build/schooltool.intervention
