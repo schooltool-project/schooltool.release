@@ -116,7 +116,6 @@ coverage-reports-html: bin/coverage
 .PHONY: extract-translations
 extract-translations: build
 	bin/i18nextract --egg schooltool \
-	                --egg schooltool.gradebook \
 	                --domain schooltool \
 	                --zcml-egg schooltool \
 	                --zcml schooltool/common/translations.zcml \
@@ -126,10 +125,15 @@ extract-translations: build
 	                --zcml-egg schooltool \
                         --zcml schooltool/commendation/translations.zcml \
 			--output-file build/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
+	bin/i18nextract --egg schooltool.gradebook \
+	                --domain schooltool.gradebook \
+	                --zcml-egg schooltool.gradebook \
+	                --zcml schooltool/gradebook/translations.zcml \
+                        --output-file build/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
 	bin/i18nextract --egg schooltool.lyceum.journal \
 			--domain schooltool.lyceum.journal \
 			--zcml-egg schooltool.lyceum.journal \
-			--zcml schooltool/lyceum/journal/translation.zcml \
+			--zcml schooltool/lyceum/journal/translations.zcml \
 			--output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
 
 .PHONY: compile-translations
@@ -143,7 +147,10 @@ compile-translations:
 	for f in $${locales}/*/LC_MESSAGES/schooltool.commendation.po; do \
 	    msgfmt -o $${f%.po}.mo $$f;\
 	done
-	set -e; \
+	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
+	for f in $${locales}/*/LC_MESSAGES/schooltool.gradebook.po; do \
+	    msgfmt -o $${f%.po}.mo $$f;\
+	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*/LC_MESSAGES/schooltool.lyceum.journal.po; do \
 	    msgfmt -o $${f%.po}.mo $$f;\
@@ -152,13 +159,17 @@ compile-translations:
 .PHONY: update-translations
 update-translations: extract-translations
 	set -e; \
+	locales=build/schooltool/src/schooltool/locales; \
+	for f in $${locales}/*/LC_MESSAGES/schooltool.po; do \
+	    msgmerge -qU $$f $${locales}/schooltool.pot ;\
+	done
 	locales=build/schooltool/src/schooltool/commendation/locales; \
 	for f in $${locales}/*/LC_MESSAGES/schooltool.commendation.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.commendation.pot ;\
 	done
-	locales=build/schooltool/src/schooltool/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.po; do \
-	    msgmerge -qU $$f $${locales}/schooltool.pot ;\
+	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
+	for f in $${locales}/*/LC_MESSAGES/schooltool.gradebook.po; do \
+	    msgmerge -qU $$f $${locales}/schooltool.gradebook.pot ;\
 	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*/LC_MESSAGES/schooltool.lyceum.journal.po; do \
