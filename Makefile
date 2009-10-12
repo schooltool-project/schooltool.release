@@ -28,7 +28,7 @@ build/schooltool.intervention: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.intervention/trunk/ build/schooltool.intervention
 
 build/schooltool.lyceum.journal: build/.bzr
-	bzr co $(BZR_REPOSITORY)/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
+	bzr co http://bazaar.launchpad.net/~schooltool-owners/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
 
 build/schooltool.stapp2008spring: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.stapp2008spring/trunk/ build/schooltool.stapp2008spring
