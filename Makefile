@@ -140,39 +140,43 @@ extract-translations: build
 compile-translations:
 	set -e; \
 	locales=build/schooltool/src/schooltool/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.po; do \
-	    msgfmt -o $${f%.po}.mo $$f;\
+	for f in $${locales}/*.po; do \
+	    mkdir -p $${f%.po}/LC_MESSAGES; \
+	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.mo $$f;\
 	done
 	locales=build/schooltool/src/schooltool/commendation/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.commendation.po; do \
-	    msgfmt -o $${f%.po}.mo $$f;\
+	for f in $${locales}/*.po; do \
+	    mkdir -p $${f%.po}/LC_MESSAGES; \
+	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.commendation.mo $$f;\
 	done
 	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.gradebook.po; do \
-	    msgfmt -o $${f%.po}.mo $$f;\
+	for f in $${locales}/*.po; do \
+	    mkdir -p $${f%.po}/LC_MESSAGES; \
+	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.gradebook.mo $$f;\
 	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.lyceum.journal.po; do \
-	    msgfmt -o $${f%.po}.mo $$f;\
+	for f in $${locales}/*.po; do \
+	    mkdir -p $${f%.po}/LC_MESSAGES; \
+	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.lyceum.journal.mo $$f;\
 	done
 
 .PHONY: update-translations
 update-translations: extract-translations
 	set -e; \
 	locales=build/schooltool/src/schooltool/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.po; do \
+	for f in $${locales}/*.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.pot ;\
 	done
 	locales=build/schooltool/src/schooltool/commendation/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.commendation.po; do \
+	for f in $${locales}/*.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.commendation.pot ;\
 	done
 	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.gradebook.po; do \
+	for f in $${locales}/*.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.gradebook.pot ;\
 	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
-	for f in $${locales}/*/LC_MESSAGES/schooltool.lyceum.journal.po; do \
+	for f in $${locales}/*.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.lyceum.journal.pot ;\
 	done
 	$(MAKE) PYTHON=$(PYTHON) compile-translations
