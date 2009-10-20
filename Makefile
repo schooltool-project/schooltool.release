@@ -5,6 +5,7 @@
 
 BOOTSTRAP_PYTHON=python2.5
 BZR_REPOSITORY='http://source.schooltool.org/var/local/bzr/schooltool'
+LP='http://bazaar.launchpad.net/~schooltool-owners'
 
 .PHONY: all
 all: bin/test-all
@@ -19,16 +20,16 @@ build/.bzr:
 	bzr init-repo build
 
 build/schooltool: build/.bzr
-	bzr co http://bazaar.launchpad.net/~schooltool-owners/schooltool/trunk/ build/schooltool
+	bzr co $(LP)/schooltool/trunk/ build/schooltool
 
 build/schooltool.gradebook: build/.bzr
-	bzr co http://bazaar.launchpad.net/~schooltool-owners/schooltool.gradebook/trunk/ build/schooltool.gradebook
+	bzr co $(LP)/schooltool.gradebook/trunk/ build/schooltool.gradebook
 
 build/schooltool.intervention: build/.bzr
-	bzr co $(BZR_REPOSITORY)/schooltool.intervention/trunk/ build/schooltool.intervention
+	bzr co $(LP)/schooltool.intervention/trunk/ build/schooltool.intervention
 
 build/schooltool.lyceum.journal: build/.bzr
-	bzr co http://bazaar.launchpad.net/~schooltool-owners/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
+	bzr co $(LP)/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
 
 build/schooltool.stapp2008spring: build/.bzr
 	bzr co $(BZR_REPOSITORY)/schooltool.stapp2008spring/trunk/ build/schooltool.stapp2008spring
