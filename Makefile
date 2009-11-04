@@ -38,7 +38,7 @@ build/schooltool.stapp2008fall: build/.bzr
 	bzr co $(SCHOOLTOOL_BZR)/schooltool.stapp2008fall/trunk/ build/schooltool.stapp2008fall
 
 build/schooltool.cas: build/.bzr
-	bzr co $(SCHOOLTOOL_BZR)/schooltool.cas/trunk/ build/schooltool.cas
+	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
 
 bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
 	$(BOOTSTRAP_PYTHON) bootstrap.py
