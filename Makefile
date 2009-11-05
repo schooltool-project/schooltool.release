@@ -13,7 +13,7 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
+bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
@@ -31,16 +31,13 @@ build/schooltool.intervention: build/.bzr
 build/schooltool.lyceum.journal: build/.bzr
 	bzr co $(LP)/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
 
-build/schooltool.stapp2008spring: build/.bzr
-	bzr co $(SCHOOLTOOL_BZR)/schooltool.stapp2008spring/trunk/ build/schooltool.stapp2008spring
-
 build/schooltool.stapp2008fall: build/.bzr
 	bzr co $(SCHOOLTOOL_BZR)/schooltool.stapp2008fall/trunk/ build/schooltool.stapp2008fall
 
 build/schooltool.cas: build/.bzr
 	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
 
-bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall build/schooltool.stapp2008spring
+bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 bin/test-all: bin/buildout
@@ -73,7 +70,6 @@ bzrupdate:
 	bzr up build/schooltool.lyceum.journal
 	bzr up build/schooltool.cas
 	bzr up build/schooltool.stapp2008fall
-	bzr up build/schooltool.stapp2008spring
 
 .PHONY: update
 update: bin/buildout bzrupdate
@@ -82,7 +78,7 @@ update: bin/buildout bzrupdate
 # Tests
 
 .PHONY: test
-test: bin/test-all bin/test-schooltool bin/test-gradebook bin/test-intervention bin/test-journal bin/test-cas bin/test-stapp2008fall bin/test-stapp2008spring
+test: bin/test-all bin/test-schooltool bin/test-gradebook bin/test-intervention bin/test-journal bin/test-cas bin/test-stapp2008fall
 	bin/test-all -uf --at-level 2
 	bin/test-schooltool
 	bin/test-gradebook
@@ -90,7 +86,6 @@ test: bin/test-all bin/test-schooltool bin/test-gradebook bin/test-intervention 
 	bin/test-journal
 	bin/test-cas
 	bin/test-stapp2008fall
-	bin/test-stapp2008spring
 
 .PHONY: ftest
 ftest:
@@ -206,7 +201,6 @@ release: compile-translations bin/buildout
 	bin/buildout setup $${release}/setup.py sdist
 	bin/buildout setup build/schooltool.cas/setup.py sdist
 	bin/buildout setup build/schooltool.stapp2008fall/setup.py sdist
-	bin/buildout setup build/schooltool.stapp2008spring/setup.py sdist
 
 .PHONY: move-release
 move-release:
@@ -223,8 +217,6 @@ move-release:
 	package=schooltool.cas; \
 	mv -uv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.stapp2008fall; \
-	mv -uv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
-	package=schooltool.stapp2008spring; \
 	mv -uv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 
 # Helpers
