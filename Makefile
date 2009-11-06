@@ -38,7 +38,7 @@ build/schooltool.cas: build/.bzr
 	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
 
 bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
-	$(BOOTSTRAP_PYTHON) bootstrap.py
+	test -d python -a -f bin/buildout || $(BOOTSTRAP_PYTHON) bootstrap.py
 
 bin/test-all: bin/buildout
 	bin/buildout
