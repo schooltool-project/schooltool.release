@@ -103,7 +103,7 @@ coverage: bin/test-all
 .PHONY: coverage-reports-html
 coverage-reports-html: bin/coverage
 	rm -rf coverage/reports
-	mkdir coverage/reports
+	mkdir -p coverage/reports
 	bin/coverage
 	ln -s schooltool.html coverage/reports/index.html
 
