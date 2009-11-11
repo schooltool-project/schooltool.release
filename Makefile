@@ -1,6 +1,6 @@
 #!/usr/bin/make
 #
-# Makefile for 2008.04 buildbot
+# Makefile for SchoolTool trunk buildbot
 #
 
 BOOTSTRAP_PYTHON=python2.5
