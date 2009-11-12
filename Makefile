@@ -113,22 +113,18 @@ coverage-reports-html: bin/coverage
 extract-translations: build
 	bin/i18nextract --egg schooltool \
 	                --domain schooltool \
-	                --zcml-egg schooltool \
 	                --zcml schooltool/common/translations.zcml \
                         --output-file build/schooltool/src/schooltool/locales/schooltool.pot
 	bin/i18nextract --egg schooltool \
                         --domain schooltool.commendation \
-	                --zcml-egg schooltool \
                         --zcml schooltool/commendation/translations.zcml \
 			--output-file build/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
 	bin/i18nextract --egg schooltool.gradebook \
 	                --domain schooltool.gradebook \
-	                --zcml-egg schooltool.gradebook \
 	                --zcml schooltool/gradebook/translations.zcml \
                         --output-file build/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
 	bin/i18nextract --egg schooltool.lyceum.journal \
 			--domain schooltool.lyceum.journal \
-			--zcml-egg schooltool.lyceum.journal \
 			--zcml schooltool/lyceum/journal/translations.zcml \
 			--output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
 
