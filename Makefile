@@ -80,18 +80,12 @@ update: bin/buildout bzrupdate
 # Tests
 
 .PHONY: test
-test: bin/test-all bin/test-schooltool bin/test-gradebook bin/test-intervention bin/test-journal bin/test-cas bin/test-stapp2008fall
-	bin/test-all -uf --at-level 2
-	bin/test-schooltool
-	bin/test-gradebook
-	bin/test-intervention
-	bin/test-journal
-	bin/test-cas
-	bin/test-stapp2008fall
+test: bin/test-all
+	bin/test-all -v --at-level 2 -u
 
 .PHONY: ftest
-ftest:
-	echo "Pass"
+ftest: bin/test-all
+	bin/test-all -v --at-level 2 -f
 
 # Coverage
 
