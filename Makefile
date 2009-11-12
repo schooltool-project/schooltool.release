@@ -178,7 +178,7 @@ update-translations: extract-translations
 	$(MAKE) PYTHON=$(PYTHON) compile-translations
 
 .PHONY: release
-release: compile-translations bin/buildout
+release: bin/buildout
 	release=build/schooltool; \
 	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
 	echo -n "_r" >> $${release}/version.txt; \
