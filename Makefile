@@ -6,6 +6,7 @@
 BOOTSTRAP_PYTHON=python2.5
 SCHOOLTOOL_BZR='http://source.schooltool.org/var/local/bzr/schooltool'
 LP='http://bazaar.launchpad.net/~schooltool-owners'
+DIST='/home/ftp/pub/schooltool/1.2'
 
 .PHONY: all
 all: bin/test-all
@@ -74,6 +75,7 @@ bzrupdate:
 .PHONY: update
 update: bin/buildout bzrupdate
 	bin/buildout -n
+	test -w $(DIST) && cp -uv versions.cfg $(DIST)
 
 # Tests
 
