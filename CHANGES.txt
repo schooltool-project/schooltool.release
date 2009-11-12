@@ -1,0 +1,19 @@
+=======
+CHANGES
+=======
+
+1.2.0 (2009-11-06)
+------------------
+
+- Rename the series to 1.2
+- Take schooltool, schooltool.gradebook, schooltool.lyceum.journal, and
+  schooltool.cas from their respective Launchpad projects
+- Separate Gradebook translations
+- Move translation files around to enable automatic synchronization with
+  Launchpad
+- New module: schooltool.intervention
+- Add versions.cfg
+- Update external dependency versions from Ubuntu Karmic
+- Update versions from Zope KGS 3.4.1dev
+- Remove schooltool.stapp2008spring from the set
+
