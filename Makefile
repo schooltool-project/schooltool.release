@@ -81,11 +81,11 @@ update: bin/buildout bzrupdate
 
 .PHONY: test
 test: bin/test-all
-	bin/test-all -v --at-level 2 -u
+	bin/test-all --at-level 2 -u
 
 .PHONY: ftest
 ftest: bin/test-all
-	bin/test-all -v --at-level 2 -f
+	bin/test-all --at-level 2 -f
 
 # Coverage
 
@@ -93,7 +93,7 @@ ftest: bin/test-all
 coverage: bin/test-all
 	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage coverage || true
 	rm -rf coverage
-	bin/test-all -pv --at-level 2 -u --coverage=coverage
+	bin/test-all --at-level 2 -u --coverage=coverage
 	mv parts/test-all/coverage .
 	@cd coverage && ls | grep -v tests | xargs grep -c '^>>>>>>' | grep -v ':0$$'
 
