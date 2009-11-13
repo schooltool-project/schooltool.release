@@ -91,16 +91,18 @@ ftest: bin/test-all
 
 .PHONY: coverage
 coverage: bin/test-all
+	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage coverage || true
 	rm -rf coverage
-	bin/test-all -u --coverage=coverage
+	bin/test-all -pv --at-level 2 -u --coverage=coverage
 	mv parts/test-all/coverage .
 	@cd coverage && ls | grep -v tests | xargs grep -c '^>>>>>>' | grep -v ':0$$'
 
 .PHONY: coverage-reports-html
 coverage-reports-html: bin/coverage
+	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage coverage || true
 	rm -rf coverage/reports
 	mkdir -p coverage/reports
-	bin/coverage
+	bin/coverage coverage coverage/reports
 	ln -s schooltool.html coverage/reports/index.html
 
 # Release
