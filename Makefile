@@ -201,17 +201,17 @@ move-release:
 	sh -c '(echo "[versions]" && ls build/*/dist/*.tar.gz | sed s/.tar.gz// | sed s/build\\/.*\\/// | sed s/-/" = "/) > trunk.cfg'
 	mv -fv trunk.cfg /home/ftp/pub/schooltool/releases/nightly/
 	package=schooltool; \
-	mv -nv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.gradebook; \
-	mv -nv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.intervention; \
-	mv -nv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.lyceum.journal; \
-	mv -nv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.cas; \
-	mv -nv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 	package=schooltool.stapp2008fall; \
-	mv -nv build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
 
 # Helpers
 
