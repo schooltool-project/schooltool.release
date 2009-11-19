@@ -91,19 +91,34 @@ ftest: bin/test-all
 
 .PHONY: coverage
 coverage: bin/test-all
-	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage coverage || true
+	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage . || true
 	rm -rf coverage
 	bin/test-all --at-level 2 -u --coverage=coverage
 	mv parts/test-all/coverage .
-	@cd coverage && ls | grep -v tests | xargs grep -c '^>>>>>>' | grep -v ':0$$'
 
 .PHONY: coverage-reports-html
-coverage-reports-html: bin/coverage
-	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage coverage || true
+coverage-reports-html coverage/reports: bin/coverage
+	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage . || true
 	rm -rf coverage/reports
-	mkdir -p coverage/reports
+	mkdir coverage/reports
 	bin/coverage coverage coverage/reports
 	ln -s schooltool.html coverage/reports/index.html
+
+.PHONY: ftest-coverage
+ftest-coverage: bin/test-all
+	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
+	rm -rf ftest-coverage
+	bin/test-all --at-level 2 -f --coverage=ftest-coverage
+	mv parts/test-all/ftest-coverage .
+
+.PHONY: ftest-coverage-reports-html
+ftest-coverage-reports-html ftest-coverage/reports: bin/coverage
+	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
+	rm -rf ftest-coverage/reports
+	mkdir ftest-coverage/reports
+	bin/coverage ftest-coverage ftest-coverage/reports
+	ln -s schooltool.html ftest-coverage/reports/index.html
+
 
 # Release
 

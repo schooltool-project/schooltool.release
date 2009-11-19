@@ -11,3 +11,5 @@
 ./build/schooltool.lyceum.journal
 ./build/schooltool.stapp2008fall
 ./build/schooltool.stapp2008spring
+./ftest-coverage
+./coverage
