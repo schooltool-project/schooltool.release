@@ -119,8 +119,7 @@ ftest-coverage-reports-html ftest-coverage/reports: bin/coverage
 	bin/coverage ftest-coverage ftest-coverage/reports
 	ln -s schooltool.html ftest-coverage/reports/index.html
 
-
-# Release
+# Translations
 
 .PHONY: extract-translations
 extract-translations: build
@@ -186,6 +185,8 @@ update-translations: extract-translations
 	done
 	$(MAKE) PYTHON=$(PYTHON) compile-translations
 
+# Release
+
 .PHONY: release
 release: bin/buildout
 	release=build/schooltool; \
@@ -237,9 +238,8 @@ ubuntu-environment:
 	 echo "I am running as $(shell whoami)"; \
 	 exit 3; \
 	} else { \
-	 apt-get install subversion build-essential python-all python-all-dev libc6-dev libicu-dev; \
+	 apt-get install bzr build-essential python-all python-all-dev libc6-dev libicu-dev; \
 	 apt-get build-dep python-imaging; \
-	 apt-get build-dep python-libxml2 libxml2; \
 	 echo "Installation Complete: Next... Run 'make'."; \
 	} fi
 
