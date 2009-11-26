@@ -215,19 +215,19 @@ release: bin/buildout
 .PHONY: move-release
 move-release:
 	sh -c '(echo "[versions]" && ls build/*/dist/*.tar.gz | sed s/.tar.gz// | sed s/build\\/.*\\/// | sed s/-/" = "/) > trunk.cfg'
-	mv -fv trunk.cfg /home/ftp/pub/schooltool/releases/nightly/
+	mv -fv trunk.cfg $(DIST)/dev
 	package=schooltool; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
 	package=schooltool.gradebook; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
 	package=schooltool.intervention; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
 	package=schooltool.lyceum.journal; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
 	package=schooltool.cas; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
 	package=schooltool.stapp2008fall; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz /home/ftp/pub/schooltool/releases/nightly
+	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
 
 # Helpers
 
