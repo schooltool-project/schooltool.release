@@ -75,7 +75,7 @@ bzrupdate:
 .PHONY: update
 update: bin/buildout bzrupdate
 	bin/buildout -n
-	test -d $(DIST) && cp -uv versions.cfg $(DIST) || true
+	test -w $(DIST) && cp -uv versions.cfg $(DIST) || true
 
 # Tests
 
