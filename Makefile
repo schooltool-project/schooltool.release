@@ -7,6 +7,7 @@ BOOTSTRAP_PYTHON=python2.5
 SCHOOLTOOL_BZR='http://source.schooltool.org/var/local/bzr/schooltool'
 LP='http://bazaar.launchpad.net/~schooltool-owners'
 DIST='/home/ftp/pub/schooltool/1.2'
+PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 
 .PHONY: all
 all: bin/test-all
@@ -14,7 +15,7 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
+bootstrap: $(PACKAGES)
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 build/.bzr:
@@ -38,7 +39,7 @@ build/schooltool.stapp2008fall: build/.bzr
 build/schooltool.cas: build/.bzr
 	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
 
-bin/buildout: build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
+bin/buildout: $(PACKAGES)
 	test -d python -a -f bin/buildout || $(BOOTSTRAP_PYTHON) bootstrap.py
 
 bin/test-all: bin/buildout
@@ -136,9 +137,9 @@ extract-translations: build
 	                --zcml schooltool/gradebook/translations.zcml \
                         --output-file build/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
 	bin/i18nextract --egg schooltool.lyceum.journal \
-			--domain schooltool.lyceum.journal \
-			--zcml schooltool/lyceum/journal/translations.zcml \
-			--output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
+	                --domain schooltool.lyceum.journal \
+	                --zcml schooltool/lyceum/journal/translations.zcml \
+	                --output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
 
 .PHONY: compile-translations
 compile-translations:
@@ -183,51 +184,25 @@ update-translations: extract-translations
 	for f in $${locales}/*.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.lyceum.journal.pot ;\
 	done
-	$(MAKE) PYTHON=$(PYTHON) compile-translations
+	$(MAKE) compile-translations
 
 # Release
 
 .PHONY: release
 release: bin/buildout
-	release=build/schooltool; \
-	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
-	echo -n "_r" >> $${release}/version.txt; \
-	bzr revno $${release} >> $${release}/version.txt; \
-	bin/buildout setup $${release}/setup.py sdist
-	release=build/schooltool.gradebook; \
-	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
-	echo -n "_r" >> $${release}/version.txt; \
-	bzr revno $${release} >> $${release}/version.txt; \
-	bin/buildout setup $${release}/setup.py sdist
-	release=build/schooltool.intervention; \
-	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
-	echo -n "_r" >> $${release}/version.txt; \
-	bzr revno $${release} >> $${release}/version.txt; \
-	bin/buildout setup $${release}/setup.py sdist
-	release=build/schooltool.lyceum.journal; \
-	echo -n `sed -e 's/\n//' $${release}/version.txt.in` > $${release}/version.txt; \
-	echo -n "_r" >> $${release}/version.txt; \
-	bzr revno $${release} >> $${release}/version.txt; \
-	bin/buildout setup $${release}/setup.py sdist
-	bin/buildout setup build/schooltool.cas/setup.py sdist
-	bin/buildout setup build/schooltool.stapp2008fall/setup.py sdist
+	set -e
+	@for package in $(PACKAGES) ; do \
+	    echo -n `cat $${package}/version.txt.in`_r`bzr revno $${package}` > $${package}/version.txt ; \
+	    bin/buildout setup $${package}/setup.py sdist ; \
+	done
 
 .PHONY: move-release
 move-release:
 	sh -c '(echo "[versions]" && ls build/*/dist/*.tar.gz | sed s/.tar.gz// | sed s/build\\/.*\\/// | sed s/-/" = "/) > trunk.cfg'
 	mv -fv trunk.cfg $(DIST)/dev
-	package=schooltool; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
-	package=schooltool.gradebook; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
-	package=schooltool.intervention; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
-	package=schooltool.lyceum.journal; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
-	package=schooltool.cas; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
-	package=schooltool.stapp2008fall; \
-	mv -v build/$${package}/dist/$${package}-*.tar.gz $(DIST)/dev
+	@for package in $(PACKAGES) ; do \
+	    mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
+	done
 
 # Helpers
 
