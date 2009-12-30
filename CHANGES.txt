@@ -2,6 +2,18 @@
 CHANGES
 =======
 
+1.2.1 (2009-12-30)
+------------------
+
+- Do not compile translations before release
+- Run unit and functional tests separately and only once, using test-all
+- Ftest coverage support
+- Move releases to 1.2/dev instead of releases/nightly
+- Update versions that broke build
+- Adopt Makefile improvements from schooltool
+- Intervention got translations support
+
+
 1.2.0 (2009-11-06)
 ------------------
 
