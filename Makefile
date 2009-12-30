@@ -136,6 +136,10 @@ extract-translations: build
 	                --domain schooltool.gradebook \
 	                --zcml schooltool/gradebook/translations.zcml \
                         --output-file build/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
+	bin/i18nextract --egg schooltool.intervention \
+	                --domain schooltool.intervention \
+	                --zcml schooltool/intervention/translations.zcml \
+                        --output-file build/schooltool.intervention/src/schooltool/intervention/locales/schooltool.intervention.pot
 	bin/i18nextract --egg schooltool.lyceum.journal \
 	                --domain schooltool.lyceum.journal \
 	                --zcml schooltool/lyceum/journal/translations.zcml \
@@ -159,6 +163,11 @@ compile-translations:
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.gradebook.mo $$f;\
 	done
+	locales=build/schooltool.intervention/src/schooltool/intervention/locales; \
+	for f in $${locales}/*.po; do \
+	    mkdir -p $${f%.po}/LC_MESSAGES; \
+	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.intervention.mo $$f;\
+	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
@@ -179,6 +188,10 @@ update-translations: extract-translations
 	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qU $$f $${locales}/schooltool.gradebook.pot ;\
+	done
+	locales=build/schooltool.intervention/src/schooltool/intervention/locales; \
+	for f in $${locales}/*.po; do \
+	    msgmerge -qU $$f $${locales}/schooltool.intervention.pot ;\
 	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*.po; do \
