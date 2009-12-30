@@ -15,8 +15,13 @@ all: bin/test-all
 # Sandbox
 
 .PHONY: bootstrap
-bootstrap: $(PACKAGES)
+bootstrap bin/buildout: $(PACKAGES)
 	$(BOOTSTRAP_PYTHON) bootstrap.py
+
+.PHONY: buildout
+buildout bin/test-all: bin/buildout buildout.cfg versions.cfg
+	bin/buildout $(BUILDOUT_FLAGS)
+	@touch --no-create bin/test-all
 
 build/.bzr:
 	bzr init-repo build
@@ -39,31 +44,6 @@ build/schooltool.stapp2008fall: build/.bzr
 build/schooltool.cas: build/.bzr
 	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
 
-bin/buildout: $(PACKAGES)
-	test -d python -a -f bin/buildout || $(BOOTSTRAP_PYTHON) bootstrap.py
-
-bin/test-all: bin/buildout
-	bin/buildout
-
-bin/test-schooltool: bin/buildout
-	bin/buildout
-
-bin/test-gradebook: bin/buildout
-	bin/buildout
-
-bin/test-intervention: bin/buildout
-	bin/buildout
-
-bin/test-journal: bin/buildout
-	bin/buildout
-
-bin/coverage:
-	bin/buildout
-
-.PHONY: buildout
-buildout: bin/buildout
-	bin/buildout
-
 .PHONY: bzrupdate
 bzrupdate:
 	bzr up build/schooltool
@@ -75,7 +55,7 @@ bzrupdate:
 
 .PHONY: update
 update: bin/buildout bzrupdate
-	bin/buildout -n
+	$(MAKE) buildout BUILDOUT_FLAGS=-n
 	test -w $(DIST) && cp -uv versions.cfg $(DIST) || true
 
 # Tests
