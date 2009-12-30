@@ -6,7 +6,7 @@
 BOOTSTRAP_PYTHON=python2.5
 SCHOOLTOOL_BZR='http://source.schooltool.org/var/local/bzr/schooltool'
 LP='http://bazaar.launchpad.net/~schooltool-owners'
-DIST='/home/ftp/pub/schooltool/1.2'
+DIST='/home/ftp/pub/schooltool/1.4'
 PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 
 .PHONY: all
