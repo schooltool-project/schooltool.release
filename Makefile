@@ -10,12 +10,15 @@ DIST='/home/ftp/pub/schooltool/1.4'
 PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 
 .PHONY: all
-all: bin/test-all
+all: build
 
 # Sandbox
 
+.PHONY: build
+build: bin/test-all $(PACKAGES)
+
 .PHONY: bootstrap
-bootstrap bin/buildout: $(PACKAGES)
+bootstrap bin/buildout:
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 .PHONY: buildout
@@ -61,24 +64,24 @@ update: bin/buildout bzrupdate
 # Tests
 
 .PHONY: test
-test: bin/test-all
+test: build
 	bin/test-all --at-level 2 -u
 
 .PHONY: ftest
-ftest: bin/test-all
+ftest: build
 	bin/test-all --at-level 2 -f
 
 # Coverage
 
 .PHONY: coverage
-coverage: bin/test-all
+coverage: build
 	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage . || true
 	rm -rf coverage
 	bin/test-all --at-level 2 -u --coverage=coverage
 	mv parts/test-all/coverage .
 
 .PHONY: coverage-reports-html
-coverage-reports-html coverage/reports: bin/coverage
+coverage-reports-html coverage/reports: build
 	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage . || true
 	rm -rf coverage/reports
 	mkdir coverage/reports
@@ -86,14 +89,14 @@ coverage-reports-html coverage/reports: bin/coverage
 	ln -s schooltool.html coverage/reports/index.html
 
 .PHONY: ftest-coverage
-ftest-coverage: bin/test-all
+ftest-coverage: build
 	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
 	rm -rf ftest-coverage
 	bin/test-all --at-level 2 -f --coverage=ftest-coverage
 	mv parts/test-all/ftest-coverage .
 
 .PHONY: ftest-coverage-reports-html
-ftest-coverage-reports-html ftest-coverage/reports: bin/coverage
+ftest-coverage-reports-html ftest-coverage/reports: build
 	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
 	rm -rf ftest-coverage/reports
 	mkdir ftest-coverage/reports
