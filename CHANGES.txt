@@ -2,6 +2,22 @@
 CHANGES
 =======
 
+1.3.1dev
+------------------
+
+- Make sure checkouts exist before updating them
+- move-release does nothing if dir is not writable, now also copies versions.cfg
+
+
+1.3.0 (2010-01-06)
+------------------
+
+- New development series leading to 1.4
+- Releases now go to /schooltool/1.4
+- New versions.cfg based on ZTK (Nov 2009)
+- Do not bootstrap every time
+
+
 1.2.1 (2009-12-30)
 ------------------
 
