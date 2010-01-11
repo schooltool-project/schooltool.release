@@ -23,7 +23,7 @@ bootstrap bin/buildout:
 
 .PHONY: buildout
 buildout bin/test-all: bin/buildout buildout.cfg versions.cfg
-	-bin/buildout $(BUILDOUT_FLAGS)
+	bin/buildout $(BUILDOUT_FLAGS)
 	@touch --no-create bin/test-all
 
 build/.bzr:
