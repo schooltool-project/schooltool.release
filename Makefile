@@ -184,7 +184,7 @@ update-translations: extract-translations
 release: bin/buildout
 	set -e
 	@for package in $(PACKAGES) ; do \
-	    echo -n `cat $${package}/version.txt.in`_r`bzr revno $${package}` > $${package}/version.txt ; \
+	    echo -n `cat $${package}/version.txt.in`-r`bzr revno $${package}` > $${package}/version.txt ; \
 	    bin/buildout setup $${package}/setup.py sdist ; \
 	done
 
