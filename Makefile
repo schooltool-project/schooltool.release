@@ -183,15 +183,17 @@ update-translations: extract-translations
 .PHONY: release
 release: bin/buildout
 	set -e
+	echo "[versions]" > trunk.cfg
 	@for package in $(PACKAGES) ; do \
-	    echo -n `cat $${package}/version.txt.in`-r`bzr revno $${package}` > $${package}/version.txt ; \
+	    version=`cat $${package}/version.txt.in`-r`bzr revno $${package}` ; \
+	    echo -n $${version} > $${package}/version.txt ; \
 	    bin/buildout setup $${package}/setup.py sdist ; \
+	    echo "`echo $${package} | sed s,build\\/,,` = $${version}" >> trunk.cfg ; \
 	done
 
 .PHONY: move-release
 move-release:
 	@if [ -w $(DIST) ] ; then { \
-	    sh -c '(echo "[versions]" && ls build/*/dist/*.tar.gz | sed s/.tar.gz// | sed s/build\\/.*\\/// | sed s/-/" = "/) > trunk.cfg' ; \
 	    mkdir -p $(DIST)/dev ; \
 	    mv -fv trunk.cfg $(DIST)/dev ; \
 	    for package in $(PACKAGES) ; do \
