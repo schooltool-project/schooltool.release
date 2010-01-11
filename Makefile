@@ -193,14 +193,13 @@ release: bin/buildout
 
 .PHONY: move-release
 move-release:
-	@if [ -w $(DIST) ] ; then { \
-	    mkdir -p $(DIST)/dev ; \
-	    mv -fv trunk.cfg $(DIST)/dev ; \
-	    for package in $(PACKAGES) ; do \
-	        mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
-	    done; \
-	    cp -uv versions.cfg $(DIST) ; \
-	} fi
+	test -w $(DIST)
+	mkdir -p $(DIST)/dev
+	mv -fv trunk.cfg $(DIST)/dev
+	@for package in $(PACKAGES) ; do \
+	    mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
+	done
+	cp -uv versions.cfg $(DIST)
 
 # Helpers
 
