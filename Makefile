@@ -56,7 +56,6 @@ bzrupdate: $(PACKAGES)
 .PHONY: update
 update: bzrupdate bin/buildout
 	$(MAKE) buildout BUILDOUT_FLAGS=-n
-	test -w $(DIST) && cp -uv versions.cfg $(DIST) || true
 
 # Tests
 
@@ -191,11 +190,15 @@ release: bin/buildout
 
 .PHONY: move-release
 move-release:
-	sh -c '(echo "[versions]" && ls build/*/dist/*.tar.gz | sed s/.tar.gz// | sed s/build\\/.*\\/// | sed s/-/" = "/) > trunk.cfg'
-	mv -fv trunk.cfg $(DIST)/dev
-	@for package in $(PACKAGES) ; do \
-	    mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
-	done
+	@if [ -w $(DIST) ] ; then { \
+	    sh -c '(echo "[versions]" && ls build/*/dist/*.tar.gz | sed s/.tar.gz// | sed s/build\\/.*\\/// | sed s/-/" = "/) > trunk.cfg' ; \
+	    mkdir -p $(DIST)/dev ; \
+	    mv -fv trunk.cfg $(DIST)/dev ; \
+	    for package in $(PACKAGES) ; do \
+	        mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
+	    done; \
+	    cp -uv versions.cfg $(DIST) ; \
+	} fi
 
 # Helpers
 
