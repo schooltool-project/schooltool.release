@@ -48,16 +48,13 @@ build/schooltool.cas: build/.bzr
 	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
 
 .PHONY: bzrupdate
-bzrupdate:
-	bzr up build/schooltool
-	bzr up build/schooltool.gradebook
-	bzr up build/schooltool.intervention
-	bzr up build/schooltool.lyceum.journal
-	bzr up build/schooltool.cas
-	bzr up build/schooltool.stapp2008fall
+bzrupdate: $(PACKAGES)
+	@for package in $(PACKAGES) ; do \
+	    bzr up $${package} ; \
+	done
 
 .PHONY: update
-update: bin/buildout bzrupdate
+update: bzrupdate bin/buildout
 	$(MAKE) buildout BUILDOUT_FLAGS=-n
 	test -w $(DIST) && cp -uv versions.cfg $(DIST) || true
 
