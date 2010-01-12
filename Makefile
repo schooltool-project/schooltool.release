@@ -84,6 +84,15 @@ coverage-reports-html coverage/reports: build
 	bin/coverage coverage coverage/reports
 	ln -s schooltool.html coverage/reports/index.html
 
+.PHONY: publish-coverage-reports
+publish-coverage-reports: coverage/reports
+	@test -n "$(DESTDIR)" || { echo "Please specify DESTDIR"; exit 1; }
+	cp -r coverage/reports $(DESTDIR).new
+	chmod -R a+rX $(DESTDIR).new
+	rm -rf $(DESTDIR).old
+	mv $(DESTDIR) $(DESTDIR).old || true
+	mv $(DESTDIR).new $(DESTDIR)
+
 .PHONY: ftest-coverage
 ftest-coverage: build
 	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
@@ -98,6 +107,15 @@ ftest-coverage-reports-html ftest-coverage/reports: build
 	mkdir ftest-coverage/reports
 	bin/coverage ftest-coverage ftest-coverage/reports
 	ln -s schooltool.html ftest-coverage/reports/index.html
+
+.PHONY: publish-ftest-coverage-reports
+publish-ftest-coverage-reports: ftest-coverage/reports
+	@test -n "$(DESTDIR)" || { echo "Please specify DESTDIR"; exit 1; }
+	cp -r ftest-coverage/reports $(DESTDIR).new
+	chmod -R a+rX $(DESTDIR).new
+	rm -rf $(DESTDIR).old
+	mv $(DESTDIR) $(DESTDIR).old || true
+	mv $(DESTDIR).new $(DESTDIR)
 
 # Translations
 
