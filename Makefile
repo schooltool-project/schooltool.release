@@ -50,11 +50,12 @@ build/schooltool.cas: build/.bzr
 .PHONY: bzrupdate
 bzrupdate: $(PACKAGES)
 	@for package in $(PACKAGES) ; do \
+	    echo Updating $${package} ; \
 	    bzr up $${package} ; \
 	done
 
 .PHONY: update
-update: bzrupdate bin/buildout
+update: bzrupdate
 	$(MAKE) buildout BUILDOUT_FLAGS=-n
 
 # Tests
