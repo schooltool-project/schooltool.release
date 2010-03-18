@@ -177,30 +177,30 @@ update-translations: extract-translations
 	set -e; \
 	locales=build/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qU $$f $${locales}/schooltool.pot ;\
+	    msgmerge -qUF $$f $${locales}/schooltool.pot ;\
 	done
 	locales=build/schooltool/src/schooltool/commendation/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qU $$f $${locales}/schooltool.commendation.pot ;\
+	    msgmerge -qUF $$f $${locales}/schooltool.commendation.pot ;\
 	done
 	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qU $$f $${locales}/schooltool.gradebook.pot ;\
+	    msgmerge -qUF $$f $${locales}/schooltool.gradebook.pot ;\
 	done
 	locales=build/schooltool.intervention/src/schooltool/intervention/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qU $$f $${locales}/schooltool.intervention.pot ;\
+	    msgmerge -qUF $$f $${locales}/schooltool.intervention.pot ;\
 	done
 	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qU $$f $${locales}/schooltool.lyceum.journal.pot ;\
+	    msgmerge -qUF $$f $${locales}/schooltool.lyceum.journal.pot ;\
 	done
 	$(MAKE) compile-translations
 
 # Release
 
 .PHONY: release
-release: bin/buildout
+release: bin/buildout compile-translations
 	set -e
 	echo "[versions]" > trunk.cfg
 	@for package in $(PACKAGES) ; do \
