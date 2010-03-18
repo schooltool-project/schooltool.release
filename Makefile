@@ -15,7 +15,7 @@ all: build
 # Sandbox
 
 .PHONY: build
-build: bin/test-all $(PACKAGES)
+build: $(PACKAGES) bin/test-all
 
 .PHONY: bootstrap
 bootstrap bin/buildout:
