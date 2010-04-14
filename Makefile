@@ -3,7 +3,7 @@
 # Makefile for SchoolTool trunk buildbot
 #
 
-BOOTSTRAP_PYTHON=python2.5
+BOOTSTRAP_PYTHON=python
 SCHOOLTOOL_BZR='http://source.schooltool.org/var/local/bzr/schooltool'
 LP='http://bazaar.launchpad.net/~schooltool-owners'
 DIST='/home/ftp/pub/schooltool/1.4'
