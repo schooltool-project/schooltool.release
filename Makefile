@@ -15,16 +15,16 @@ all: build
 # Sandbox
 
 .PHONY: build
-build: $(PACKAGES) bin/test-all
+build: $(PACKAGES) bin/test
 
 .PHONY: bootstrap
-bootstrap bin/buildout:
+bootstrap bin/buildout python:
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 .PHONY: buildout
-buildout bin/test-all: bin/buildout buildout.cfg versions.cfg
+buildout bin/test: python bin/buildout buildout.cfg versions.cfg
 	bin/buildout $(BUILDOUT_FLAGS)
-	@touch --no-create bin/test-all
+	@touch --no-create bin/test
 
 build/.bzr:
 	bzr init-repo build
@@ -62,24 +62,24 @@ update: bzrupdate
 
 .PHONY: test
 test: build
-	bin/test-all --at-level 2 -u
+	bin/test --at-level 2 -u
 
 .PHONY: ftest
 ftest: build
-	bin/test-all --at-level 2 -f
+	bin/test --at-level 2 -f
 
 # Coverage
 
 .PHONY: coverage
 coverage: build
-	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage . || true
+	test -d parts/test/coverage && ! test -d coverage && mv parts/test/coverage . || true
 	rm -rf coverage
-	bin/test-all --at-level 2 -u --coverage=coverage
-	mv parts/test-all/coverage .
+	bin/test --at-level 2 -u --coverage=coverage
+	mv parts/test/coverage .
 
 .PHONY: coverage-reports-html
 coverage-reports-html coverage/reports: build
-	test -d parts/test-all/coverage && ! test -d coverage && mv parts/test-all/coverage . || true
+	test -d parts/test/coverage && ! test -d coverage && mv parts/test/coverage . || true
 	rm -rf coverage/reports
 	mkdir coverage/reports
 	bin/coverage coverage coverage/reports
@@ -96,14 +96,14 @@ publish-coverage-reports: coverage/reports
 
 .PHONY: ftest-coverage
 ftest-coverage: build
-	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
+	test -d parts/test/ftest-coverage && ! test -d ftest-coverage && mv parts/test/ftest-coverage . || true
 	rm -rf ftest-coverage
-	bin/test-all --at-level 2 -f --coverage=ftest-coverage
-	mv parts/test-all/ftest-coverage .
+	bin/test --at-level 2 -f --coverage=ftest-coverage
+	mv parts/test/ftest-coverage .
 
 .PHONY: ftest-coverage-reports-html
 ftest-coverage-reports-html ftest-coverage/reports: build
-	test -d parts/test-all/ftest-coverage && ! test -d ftest-coverage && mv parts/test-all/ftest-coverage . || true
+	test -d parts/test/ftest-coverage && ! test -d ftest-coverage && mv parts/test/ftest-coverage . || true
 	rm -rf ftest-coverage/reports
 	mkdir ftest-coverage/reports
 	bin/coverage ftest-coverage ftest-coverage/reports
