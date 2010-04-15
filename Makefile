@@ -13,8 +13,6 @@ PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.interventi
 .PHONY: all
 all: build
 
-# Sandbox
-
 .PHONY: build
 build: $(PACKAGES) bin/test
 
@@ -236,12 +234,4 @@ move-release:
 
 .PHONY: ubuntu-environment
 ubuntu-environment:
-	@if [ `whoami` != "root" ]; then { \
-	 echo "You must be root to create an environment."; \
-	 echo "I am running as $(shell whoami)"; \
-	 exit 3; \
-	} else { \
-	 apt-get install bzr build-essential python-all-dev libc6-dev libicu-dev libxslt1-dev; \
-	 apt-get install libfreetype6-dev libjpeg62-dev; \
-	 echo "Installation Complete: Next... Run 'make'."; \
-	} fi
+	sudo apt-get install bzr build-essential python-all-dev libc6-dev libicu-dev libxslt1-dev libfreetype6-dev libjpeg62-dev
