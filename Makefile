@@ -59,6 +59,10 @@ bzrupdate: $(PACKAGES)
 update: bzrupdate
 	$(MAKE) buildout BUILDOUT_FLAGS=-n
 
+.PHONY: tags
+tags: build
+	bin/tags
+
 .PHONY: clean
 clean:
 	rm -rf bin develop-eggs parts python
