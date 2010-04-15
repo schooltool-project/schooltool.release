@@ -3,10 +3,11 @@
 # Makefile for SchoolTool trunk buildbot
 #
 
+DIST=/home/ftp/pub/schooltool/1.4
 BOOTSTRAP_PYTHON=python
+
 SCHOOLTOOL_BZR='http://source.schooltool.org/var/local/bzr/schooltool'
 LP='http://bazaar.launchpad.net/~schooltool-owners'
-DIST='/home/ftp/pub/schooltool/1.4'
 PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 
 .PHONY: all
@@ -57,6 +58,13 @@ bzrupdate: $(PACKAGES)
 .PHONY: update
 update: bzrupdate
 	$(MAKE) buildout BUILDOUT_FLAGS=-n
+
+.PHONY: clean
+clean:
+	rm -rf bin develop-eggs parts python
+	rm -f .installed.cfg
+	rm -f ID TAGS tags
+	find . -name '*.py[co]' -exec rm -f {} \;
 
 # Tests
 
@@ -233,8 +241,3 @@ ubuntu-environment:
 	 apt-get install libfreetype6-dev libjpeg62-dev; \
 	 echo "Installation Complete: Next... Run 'make'."; \
 	} fi
-
-.PHONY: clean
-clean:
-	rm -rf python develop-eggs bin parts .installed.cfg
-
