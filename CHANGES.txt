@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-1.3.2 (unreleased)
+1.3.2 (2010-04-29)
 ------------------
 
 - Use default python (python2.6 on karmic and lucid).
