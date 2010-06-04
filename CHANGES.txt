@@ -2,6 +2,15 @@
 CHANGES
 =======
 
+1.4.0 (2010-05-26)
+------------------
+
+First stable release from 1.4 series
+
+- Add missing versions for some dependencies
+- Update CanDo dependencies
+
+
 1.3.2 (2010-04-29)
 ------------------
 
