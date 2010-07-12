@@ -9,8 +9,8 @@ BOOTSTRAP_PYTHON=python
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
-SCHOOLTOOL_BZR='http://source.schooltool.org/var/local/bzr/schooltool'
-LP='http://bazaar.launchpad.net/~schooltool-owners'
+SCHOOLTOOL_BZR=http://source.schooltool.org/var/local/bzr/schooltool
+LP=http://bazaar.launchpad.net/~schooltool-owners
 PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
 
 .PHONY: all
