@@ -11,7 +11,7 @@ BUILDOUT_FLAGS=
 
 SCHOOLTOOL_BZR=http://source.schooltool.org/var/local/bzr/schooltool
 LP=http://bazaar.launchpad.net/~schooltool-owners
-PACKAGES=build/schooltool build/schooltool.gradebook build/schooltool.intervention build/schooltool.lyceum.journal build/schooltool.cas build/schooltool.stapp2008fall
+PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.cas src/schooltool.stapp2008fall
 
 .PHONY: all
 all: build
@@ -28,26 +28,27 @@ buildout bin/test: python bin/buildout buildout.cfg versions.cfg
 	bin/buildout $(BUILDOUT_FLAGS)
 	@touch --no-create bin/test
 
-build/.bzr:
-	bzr init-repo build
+src/.bzr:
+	# if default format is 2a, cannot push branches back to Launchpad
+	bzr init-repo --pack-0.92 src
 
-build/schooltool: build/.bzr
-	bzr co $(LP)/schooltool/trunk/ build/schooltool
+src/schooltool: src/.bzr
+	bzr co $(LP)/schooltool/trunk/ src/schooltool
 
-build/schooltool.gradebook: build/.bzr
-	bzr co $(LP)/schooltool.gradebook/trunk/ build/schooltool.gradebook
+src/schooltool.gradebook: src/.bzr
+	bzr co $(LP)/schooltool.gradebook/trunk/ src/schooltool.gradebook
 
-build/schooltool.intervention: build/.bzr
-	bzr co $(LP)/schooltool.intervention/trunk/ build/schooltool.intervention
+src/schooltool.intervention: src/.bzr
+	bzr co $(LP)/schooltool.intervention/trunk/ src/schooltool.intervention
 
-build/schooltool.lyceum.journal: build/.bzr
-	bzr co $(LP)/schooltool.lyceum.journal/trunk/ build/schooltool.lyceum.journal
+src/schooltool.lyceum.journal: src/.bzr
+	bzr co $(LP)/schooltool.lyceum.journal/trunk/ src/schooltool.lyceum.journal
 
-build/schooltool.stapp2008fall: build/.bzr
-	bzr co $(SCHOOLTOOL_BZR)/schooltool.stapp2008fall/trunk/ build/schooltool.stapp2008fall
+src/schooltool.stapp2008fall: src/.bzr
+	bzr co $(SCHOOLTOOL_BZR)/schooltool.stapp2008fall/trunk/ src/schooltool.stapp2008fall
 
-build/schooltool.cas: build/.bzr
-	bzr co $(LP)/schooltool.cas/trunk/ build/schooltool.cas
+src/schooltool.cas: src/.bzr
+	bzr co $(LP)/schooltool.cas/trunk/ src/schooltool.cas
 
 .PHONY: bzrupdate
 bzrupdate: $(PACKAGES)
@@ -146,48 +147,48 @@ extract-translations: build
 	bin/i18nextract --egg schooltool \
 	                --domain schooltool \
 	                --zcml schooltool/common/translations.zcml \
-                        --output-file build/schooltool/src/schooltool/locales/schooltool.pot
+	                --output-file src/schooltool/src/schooltool/locales/schooltool.pot
 	bin/i18nextract --egg schooltool \
-                        --domain schooltool.commendation \
-                        --zcml schooltool/commendation/translations.zcml \
-			--output-file build/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
+	                --domain schooltool.commendation \
+	                --zcml schooltool/commendation/translations.zcml \
+	                --output-file src/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
 	bin/i18nextract --egg schooltool.gradebook \
 	                --domain schooltool.gradebook \
 	                --zcml schooltool/gradebook/translations.zcml \
-                        --output-file build/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
+	                --output-file src/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
 	bin/i18nextract --egg schooltool.intervention \
 	                --domain schooltool.intervention \
 	                --zcml schooltool/intervention/translations.zcml \
-                        --output-file build/schooltool.intervention/src/schooltool/intervention/locales/schooltool.intervention.pot
+	                --output-file src/schooltool.intervention/src/schooltool/intervention/locales/schooltool.intervention.pot
 	bin/i18nextract --egg schooltool.lyceum.journal \
 	                --domain schooltool.lyceum.journal \
 	                --zcml schooltool/lyceum/journal/translations.zcml \
-	                --output-file build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
+	                --output-file src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
 
 .PHONY: compile-translations
 compile-translations:
 	set -e; \
-	locales=build/schooltool/src/schooltool/locales; \
+	locales=src/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.mo $$f;\
 	done
-	locales=build/schooltool/src/schooltool/commendation/locales; \
+	locales=src/schooltool/src/schooltool/commendation/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.commendation.mo $$f;\
 	done
-	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
+	locales=src/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.gradebook.mo $$f;\
 	done
-	locales=build/schooltool.intervention/src/schooltool/intervention/locales; \
+	locales=src/schooltool.intervention/src/schooltool/intervention/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.intervention.mo $$f;\
 	done
-	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
+	locales=src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.lyceum.journal.mo $$f;\
@@ -196,23 +197,23 @@ compile-translations:
 .PHONY: update-translations
 update-translations: extract-translations
 	set -e; \
-	locales=build/schooltool/src/schooltool/locales; \
+	locales=src/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.pot ;\
 	done
-	locales=build/schooltool/src/schooltool/commendation/locales; \
+	locales=src/schooltool/src/schooltool/commendation/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.commendation.pot ;\
 	done
-	locales=build/schooltool.gradebook/src/schooltool/gradebook/locales; \
+	locales=src/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.gradebook.pot ;\
 	done
-	locales=build/schooltool.intervention/src/schooltool/intervention/locales; \
+	locales=src/schooltool.intervention/src/schooltool/intervention/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.intervention.pot ;\
 	done
-	locales=build/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
+	locales=src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.lyceum.journal.pot ;\
 	done
