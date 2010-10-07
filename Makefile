@@ -9,15 +9,13 @@ BOOTSTRAP_PYTHON=python
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
-SCHOOLTOOL_BZR=http://source.schooltool.org/var/local/bzr/schooltool
-LP=http://bazaar.launchpad.net/~schooltool-owners
 PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.cas src/schooltool.stapp2008fall
 
 .PHONY: all
 all: build
 
 .PHONY: build
-build: $(PACKAGES) bin/test
+build: bin/test $(PACKAGES)
 
 .PHONY: bootstrap
 bootstrap bin/buildout python:
@@ -32,30 +30,12 @@ src/.bzr:
 	# if default format is 2a, cannot push branches back to Launchpad
 	bzr init-repo --pack-0.92 src
 
-src/schooltool: src/.bzr
-	bzr co $(LP)/schooltool/trunk/ src/schooltool
-
-src/schooltool.gradebook: src/.bzr
-	bzr co $(LP)/schooltool.gradebook/trunk/ src/schooltool.gradebook
-
-src/schooltool.intervention: src/.bzr
-	bzr co $(LP)/schooltool.intervention/trunk/ src/schooltool.intervention
-
-src/schooltool.lyceum.journal: src/.bzr
-	bzr co $(LP)/schooltool.lyceum.journal/trunk/ src/schooltool.lyceum.journal
-
-src/schooltool.stapp2008fall: src/.bzr
-	bzr co $(SCHOOLTOOL_BZR)/schooltool.stapp2008fall/trunk/ src/schooltool.stapp2008fall
-
-src/schooltool.cas: src/.bzr
-	bzr co $(LP)/schooltool.cas/trunk/ src/schooltool.cas
+$(PACKAGES): src/.bzr bin/test
+	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
 
 .PHONY: bzrupdate
-bzrupdate: $(PACKAGES)
-	@for package in $(PACKAGES) ; do \
-	    echo Updating $${package} ; \
-	    bzr up $${package} ; \
-	done
+bzrupdate: build
+	bin/develop update
 
 .PHONY: update
 update: bzrupdate
@@ -143,7 +123,7 @@ publish-ftest-coverage-reports: ftest-coverage/reports
 # Translations
 
 .PHONY: extract-translations
-extract-translations: build
+extract-translations: build $(PACKAGES)
 	bin/i18nextract --egg schooltool \
 	                --domain schooltool \
 	                --zcml schooltool/common/translations.zcml \
