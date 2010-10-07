@@ -166,7 +166,7 @@ extract-translations: build
 	                --output-file src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
 
 .PHONY: compile-translations
-compile-translations:
+compile-translations: $(PACKAGES)
 	set -e; \
 	locales=src/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*.po; do \
@@ -224,19 +224,17 @@ update-translations: extract-translations
 .PHONY: release
 release: bin/buildout compile-translations
 	set -e
-	echo "[versions]" > trunk.cfg
 	@for package in $(PACKAGES) ; do \
 	    version=`cat $${package}/version.txt.in`-r`bzr revno $${package}` ; \
 	    echo -n $${version} > $${package}/version.txt ; \
 	    bin/buildout setup $${package}/setup.py sdist ; \
-	    echo "`echo $${package} | sed s,build\\/,,` = $${version}" >> trunk.cfg ; \
+	    rm $${package}/version.txt ; \
 	done
 
 .PHONY: move-release
 move-release:
 	test -w $(DIST)
 	mkdir -p $(DIST)/dev
-	mv -fv trunk.cfg $(DIST)/dev
 	@for package in $(PACKAGES) ; do \
 	    mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
 	done
