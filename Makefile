@@ -15,7 +15,7 @@ PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src
 all: build
 
 .PHONY: build
-build: bin/test $(PACKAGES)
+build: bin/test
 
 .PHONY: bootstrap
 bootstrap bin/buildout python:
