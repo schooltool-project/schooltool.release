@@ -27,8 +27,7 @@ buildout bin/test: python bin/buildout buildout.cfg schooltool.cfg community.cfg
 	@touch --no-create bin/test
 
 src/.bzr:
-	# if default format is 2a, cannot push branches back to Launchpad
-	bzr init-repo --pack-0.92 src
+	bzr init-repo src
 
 $(PACKAGES): src/.bzr bin/test
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
