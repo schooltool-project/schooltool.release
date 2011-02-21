@@ -15,21 +15,20 @@ PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src
 all: build
 
 .PHONY: build
-build: bin/test
+build: .installed.cfg
 
 .PHONY: bootstrap
 bootstrap bin/buildout python:
 	$(BOOTSTRAP_PYTHON) bootstrap.py
 
 .PHONY: buildout
-buildout bin/test: python bin/buildout buildout.cfg schooltool.cfg community.cfg versions.cfg
+buildout .installed.cfg: python bin/buildout buildout.cfg schooltool.cfg community.cfg versions.cfg
 	bin/buildout $(BUILDOUT_FLAGS)
-	@touch --no-create bin/test
 
 src/.bzr:
 	bzr init-repo src
 
-$(PACKAGES): src/.bzr bin/test
+$(PACKAGES): src/.bzr .installed.cfg
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
 
 .PHONY: bzrupdate
