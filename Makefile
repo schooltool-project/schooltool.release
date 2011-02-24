@@ -9,7 +9,7 @@ BOOTSTRAP_PYTHON=python
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
-PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.cas src/schooltool.stapp2008fall
+PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.cas
 
 .PHONY: all
 all: build

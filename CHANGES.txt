@@ -2,8 +2,8 @@
 CHANGES
 =======
 
-1.6.0 (unreleased)
-------------------
+1.6.0a1 (2011-02-23)
+--------------------
 
 Alpha1 for Natty
 
@@ -12,11 +12,13 @@ Alpha1 for Natty
   + PIL 1.1.7
   + Reportlab 2.5
   + lxml 2.3
+- Add ttf-liberation external dependency.
 - Removed deprecated Zope dependencies:
   + zope.app.catalog
   + zope.app.intid
   + zope.app.session
   + zope.app.zptpage
+- Remove schooltool.stapp2008fall from package set.
 
 
 1.5.3 (2010-10-22)

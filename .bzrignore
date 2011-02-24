@@ -9,8 +9,6 @@
 ./src/schooltool.gradebook
 ./src/schooltool.intervention
 ./src/schooltool.lyceum.journal
-./src/schooltool.stapp2008fall
-./src/schooltool.stapp2008spring
 ./ftest-coverage
 ./coverage
 ./tags
