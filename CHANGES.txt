@@ -2,10 +2,61 @@
 CHANGES
 =======
 
+1.6.0 (unreleased)
+------------------
+
+Alpha1 for Natty
+
+- Update to ZTK 1.0.1
+- Update external dependencies versions to match Natty:
+  + PIL 1.1.7
+  + Reportlab 2.5
+  + lxml 2.3
+- Removed deprecated Zope dependencies:
+  + zope.app.catalog
+  + zope.app.intid
+  + zope.app.session
+  + zope.app.zptpage
+
+
+1.5.3 (2010-10-22)
+------------------
+
+- Update versions to ZTK 1.0
+- Use mr.developer to checkout and update branches.
+- Now `make` on a fresh checkout will use eggs.
+
+
+1.5.2 (2010-09-28)
+------------------
+
+- Update to ZTK 1.0c2
+- Drop zope.app.interface and zodbcode dependencies.
+
+
+1.5.1 (2010-09-06)
+------------------
+
+All packages uploaded for Maverick
+
+- Add mr.developer support
+  + Add schooltool.cfg and community.cfg with packages that are not in the ZTK
+  + Use z3c.recipe.compattest for testing them
+- Update versions to BlueBream 1.0b4
+- Drop zope.deferredimport dependency.
+- Set allow-picked-versions to true, add missing versions
+
+
+1.5.0 (2010-07-12)
+------------------
+
+First release for Maverick.
+
+
 1.4.0 (2010-05-26)
 ------------------
 
-First stable release from 1.4 series
+First stable release in 1.4 series for Lucid.
 
 - Add missing versions for some dependencies
 - Update CanDo dependencies
