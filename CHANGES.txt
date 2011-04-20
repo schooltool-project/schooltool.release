@@ -10,6 +10,7 @@ Beta1 for Natty
 - Update to ZTK 1.0.2
 - Plugins now have optional optional inter-dependencies, include
   meta.zcml that defines a feature before including plugin.zcml.
+- Split out schooltool.commendation into a separate plugin.
 
 
 1.6.0a1 (2011-02-23)

@@ -9,7 +9,7 @@ BOOTSTRAP_PYTHON=python
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
-PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.cas
+PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.cas src/schooltool.commendation
 
 .PHONY: all
 all: build
@@ -126,7 +126,7 @@ extract-translations: build $(PACKAGES)
 	                --domain schooltool \
 	                --zcml schooltool/common/translations.zcml \
 	                --output-file src/schooltool/src/schooltool/locales/schooltool.pot
-	bin/i18nextract --egg schooltool \
+	bin/i18nextract --egg schooltool.commendation \
 	                --domain schooltool.commendation \
 	                --zcml schooltool/commendation/translations.zcml \
 	                --output-file src/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
@@ -151,7 +151,7 @@ compile-translations: $(PACKAGES)
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.mo $$f;\
 	done
-	locales=src/schooltool/src/schooltool/commendation/locales; \
+	locales=src/schooltool.commendation/src/schooltool/commendation/locales; \
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.commendation.mo $$f;\
@@ -179,7 +179,7 @@ update-translations: extract-translations
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.pot ;\
 	done
-	locales=src/schooltool/src/schooltool/commendation/locales; \
+	locales=src/schooltool.commendation/src/schooltool/commendation/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUF $$f $${locales}/schooltool.commendation.pot ;\
 	done
