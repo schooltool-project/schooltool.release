@@ -1,10 +1,10 @@
 #!/usr/bin/make
 #
-# Makefile for SchoolTool trunk buildbot
+# Makefile for SchoolTool Release
 #
 
 DIST=/home/ftp/pub/schooltool/trunk
-BOOTSTRAP_PYTHON=python
+BOOTSTRAP_PYTHON=python2.6
 
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
@@ -28,19 +28,19 @@ buildout .installed.cfg: python bin/buildout buildout.cfg schooltool.cfg communi
 src/.bzr:
 	bzr init-repo src
 
-$(PACKAGES): src/.bzr .installed.cfg
+.PHONY: develop
+develop: src/.bzr
+	$(MAKE) buildout BUILDOUT_FLAGS='-c development.cfg'
+
+$(PACKAGES): src/.bzr build
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
 
-.PHONY: bzrupdate
-bzrupdate: build
-	bin/develop update
-
 .PHONY: update
-update: bzrupdate
+update: build
+	bin/develop update
 	$(MAKE) buildout BUILDOUT_FLAGS=-n
 
 instance:
-	$(MAKE) buildout
 	bin/make-schooltool-instance instance instance_type=$(INSTANCE_TYPE)
 
 .PHONY: run
@@ -53,10 +53,21 @@ tags: build
 
 .PHONY: clean
 clean:
-	rm -rf bin develop-eggs parts python
-	rm -f .installed.cfg
+	rm -rf python
+	rm -rf bin develop-eggs parts .installed.cfg
+	rm -rf build
 	rm -f ID TAGS tags
-	find . -name '*.py[co]' -exec rm -f {} \;
+	rm -rf coverage
+	find . -name '*.py[co]' -delete
+	find . -name '*.mo' -delete
+	find . -name 'LC_MESSAGES' -exec rmdir -p --ignore-fail-on-non-empty {} +
+
+.PHONY: realclean
+realclean:
+	rm -rf eggs
+	rm -rf dist
+	rm -rf instance
+	$(MAKE) clean
 
 # Tests
 
@@ -173,27 +184,27 @@ compile-translations: $(PACKAGES)
 	done
 
 .PHONY: update-translations
-update-translations: extract-translations
+update-translations:
 	set -e; \
 	locales=src/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qUF $$f $${locales}/schooltool.pot ;\
+	    msgmerge -qUFN $$f $${locales}/schooltool.pot ;\
 	done
 	locales=src/schooltool.commendation/src/schooltool/commendation/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qUF $$f $${locales}/schooltool.commendation.pot ;\
+	    msgmerge -qUFN $$f $${locales}/schooltool.commendation.pot ;\
 	done
 	locales=src/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qUF $$f $${locales}/schooltool.gradebook.pot ;\
+	    msgmerge -qUFN $$f $${locales}/schooltool.gradebook.pot ;\
 	done
 	locales=src/schooltool.intervention/src/schooltool/intervention/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qUF $$f $${locales}/schooltool.intervention.pot ;\
+	    msgmerge -qUFN $$f $${locales}/schooltool.intervention.pot ;\
 	done
 	locales=src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
 	for f in $${locales}/*.po; do \
-	    msgmerge -qUF $$f $${locales}/schooltool.lyceum.journal.pot ;\
+	    msgmerge -qUFN $$f $${locales}/schooltool.lyceum.journal.pot ;\
 	done
 	$(MAKE) compile-translations
 
@@ -206,7 +217,7 @@ release: bin/buildout compile-translations
 	    version=`cat $${package}/version.txt.in`-r`bzr revno $${package}` ; \
 	    echo -n $${version} > $${package}/version.txt ; \
 	    bin/buildout setup $${package}/setup.py sdist ; \
-	    rm $${package}/version.txt ; \
+	    rm -f $${package}/version.txt ; \
 	done
 
 .PHONY: move-release
@@ -224,3 +235,4 @@ move-release:
 ubuntu-environment:
 	sudo apt-get install bzr build-essential gettext enscript ttf-liberation \
 	    python-all-dev libc6-dev libicu-dev libxslt1-dev libfreetype6-dev libjpeg62-dev 
+
