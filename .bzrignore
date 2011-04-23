@@ -6,6 +6,7 @@
 ./src/.bzr
 ./src/schooltool
 ./src/schooltool.cas
+./src/schooltool.commendation
 ./src/schooltool.gradebook
 ./src/schooltool.intervention
 ./src/schooltool.lyceum.journal

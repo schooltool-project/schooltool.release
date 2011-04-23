@@ -5,7 +5,12 @@ CHANGES
 1.6.0 (unreleased)
 ------------------
 
-- Split out schooltool.commendation into a separate plugin.
+Initial release as a new project, a SchoolTool suite including all supported
+plugins, to https://launchpad.net/schooltool.release
+This project is what has been tested by http://source.schooltool.org/buildbot/
+
+- Split out schooltool.commendation example plugin into its own project
+  https://launchpad.net/schooltool.commendation
 
 
 1.6.0b1 (2011-04-20)
