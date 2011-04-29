@@ -2,15 +2,13 @@
 CHANGES
 =======
 
-1.6.0 (unreleased)
+1.6.0 (2011-04-26)
 ------------------
 
-Initial release as a new project, a SchoolTool suite including all supported
-plugins, to https://launchpad.net/schooltool.release
-This project is what has been tested by http://source.schooltool.org/buildbot/
+Final release for Natty
 
-- Split out schooltool.commendation example plugin into its own project
-  https://launchpad.net/schooltool.commendation
+- New umbrella project https://launchpad.net/schooltool.release
+- Add schooltool.commendation plugin that was split from schooltool.
 
 
 1.6.0b1 (2011-04-20)
@@ -30,15 +28,19 @@ Alpha1 for Natty
 
 - Update to ZTK 1.0.1
 - Update external dependencies versions to match Natty:
+
   + PIL 1.1.7
   + Reportlab 2.5
   + lxml 2.3
+
 - Add ttf-liberation external dependency.
 - Removed deprecated Zope dependencies:
+
   + zope.app.catalog
   + zope.app.intid
   + zope.app.session
   + zope.app.zptpage
+
 - Remove schooltool.stapp2008fall from package set.
 
 
