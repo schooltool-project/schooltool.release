@@ -4,7 +4,7 @@
 #
 
 DIST=/home/ftp/pub/schooltool/trunk
-BOOTSTRAP_PYTHON=python2.6
+BOOTSTRAP_PYTHON=python
 
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
