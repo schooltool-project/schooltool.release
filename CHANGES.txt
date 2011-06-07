@@ -2,6 +2,17 @@
 CHANGES
 =======
 
+1.7.0 (unreleased)
+------------------
+
+- Drop dependencies:
+  - zope.app.zcmlfiles
+  - zope.app.rotterdam
+  - zope.app.zopeappgenerations
+  - zope.app.authentication
+  - zope.pluggableauth
+
+
 1.6.0 (2011-04-26)
 ------------------
 
