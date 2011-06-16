@@ -40,7 +40,7 @@ update: build
 	bin/develop update
 	bin/develop rebuild
 
-instance:
+instance: | build
 	bin/make-schooltool-instance instance instance_type=$(INSTANCE_TYPE)
 
 .PHONY: run
@@ -57,7 +57,7 @@ clean:
 	rm -rf bin develop-eggs parts .installed.cfg
 	rm -rf build
 	rm -f ID TAGS tags
-	rm -rf coverage
+	rm -rf coverage ftest-coverage
 	find . -name '*.py[co]' -delete
 	find . -name '*.mo' -delete
 	find . -name 'LC_MESSAGES' -exec rmdir -p --ignore-fail-on-non-empty {} +
@@ -78,6 +78,10 @@ test: build
 .PHONY: ftest
 ftest: build
 	bin/test --at-level 2 -f
+
+.PHONY: testall
+testall: build
+	bin/test --at-level 2
 
 # Coverage
 
@@ -225,7 +229,8 @@ move-release:
 	test -w $(DIST)
 	mkdir -p $(DIST)/dev
 	@for package in $(PACKAGES) ; do \
-	    mv -v $${package}/dist/*.tar.gz $(DIST)/dev ; \
+	    version=`cat $${package}/version.txt.in`-r`bzr revno $${package}` ; \
+	    mv -v $${package}/dist/*-$${version}.tar.gz $(DIST)/dev ; \
 	done
 	cp -uv versions.cfg $(DIST)
 
