@@ -10,7 +10,6 @@ INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
 PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal
-# src/schooltool.cas src/schooltool.commendation
 
 .PHONY: all
 all: build
@@ -142,10 +141,6 @@ extract-translations: build $(PACKAGES)
 	                --domain schooltool \
 	                --zcml schooltool/common/translations.zcml \
 	                --output-file src/schooltool/src/schooltool/locales/schooltool.pot
-	bin/i18nextract --egg schooltool.commendation \
-	                --domain schooltool.commendation \
-	                --zcml schooltool/commendation/translations.zcml \
-	                --output-file src/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
 	bin/i18nextract --egg schooltool.gradebook \
 	                --domain schooltool.gradebook \
 	                --zcml schooltool/gradebook/translations.zcml \
@@ -166,11 +161,6 @@ compile-translations: $(PACKAGES)
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.mo $$f;\
-	done
-	locales=src/schooltool.commendation/src/schooltool/commendation/locales; \
-	for f in $${locales}/*.po; do \
-	    mkdir -p $${f%.po}/LC_MESSAGES; \
-	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.commendation.mo $$f;\
 	done
 	locales=src/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
@@ -194,10 +184,6 @@ update-translations:
 	locales=src/schooltool/src/schooltool/locales; \
 	for f in $${locales}/*.po; do \
 	    msgmerge -qUFN $$f $${locales}/schooltool.pot ;\
-	done
-	locales=src/schooltool.commendation/src/schooltool/commendation/locales; \
-	for f in $${locales}/*.po; do \
-	    msgmerge -qUFN $$f $${locales}/schooltool.commendation.pot ;\
 	done
 	locales=src/schooltool.gradebook/src/schooltool/gradebook/locales; \
 	for f in $${locales}/*.po; do \
