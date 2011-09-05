@@ -3,7 +3,7 @@
 # Makefile for SchoolTool Release
 #
 
-DIST=/home/ftp/pub/schooltool/trunk
+DIST=/home/ftp/pub/schooltool/flourish
 BOOTSTRAP_PYTHON=python
 
 INSTANCE_TYPE=schooltool
