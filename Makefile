@@ -135,29 +135,6 @@ publish-ftest-coverage-reports: ftest-coverage/reports
 
 # Translations
 
-.PHONY: extract-translations
-extract-translations: build $(PACKAGES)
-	bin/i18nextract --egg schooltool \
-	                --domain schooltool \
-	                --zcml schooltool/common/translations.zcml \
-	                --output-file src/schooltool/src/schooltool/locales/schooltool.pot
-	bin/i18nextract --egg schooltool.commendation \
-	                --domain schooltool.commendation \
-	                --zcml schooltool/commendation/translations.zcml \
-	                --output-file src/schooltool/src/schooltool/commendation/locales/schooltool.commendation.pot
-	bin/i18nextract --egg schooltool.gradebook \
-	                --domain schooltool.gradebook \
-	                --zcml schooltool/gradebook/translations.zcml \
-	                --output-file src/schooltool.gradebook/src/schooltool/gradebook/locales/schooltool.gradebook.pot
-	bin/i18nextract --egg schooltool.intervention \
-	                --domain schooltool.intervention \
-	                --zcml schooltool/intervention/translations.zcml \
-	                --output-file src/schooltool.intervention/src/schooltool/intervention/locales/schooltool.intervention.pot
-	bin/i18nextract --egg schooltool.lyceum.journal \
-	                --domain schooltool.lyceum.journal \
-	                --zcml schooltool/lyceum/journal/translations.zcml \
-	                --output-file src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales/schooltool.lyceum.journal.pot
-
 .PHONY: compile-translations
 compile-translations: $(PACKAGES)
 	set -e; \
@@ -186,31 +163,6 @@ compile-translations: $(PACKAGES)
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.lyceum.journal.mo $$f;\
 	done
-
-.PHONY: update-translations
-update-translations:
-	set -e; \
-	locales=src/schooltool/src/schooltool/locales; \
-	for f in $${locales}/*.po; do \
-	    msgmerge -qUFN $$f $${locales}/schooltool.pot ;\
-	done
-	locales=src/schooltool.commendation/src/schooltool/commendation/locales; \
-	for f in $${locales}/*.po; do \
-	    msgmerge -qUFN $$f $${locales}/schooltool.commendation.pot ;\
-	done
-	locales=src/schooltool.gradebook/src/schooltool/gradebook/locales; \
-	for f in $${locales}/*.po; do \
-	    msgmerge -qUFN $$f $${locales}/schooltool.gradebook.pot ;\
-	done
-	locales=src/schooltool.intervention/src/schooltool/intervention/locales; \
-	for f in $${locales}/*.po; do \
-	    msgmerge -qUFN $$f $${locales}/schooltool.intervention.pot ;\
-	done
-	locales=src/schooltool.lyceum.journal/src/schooltool/lyceum/journal/locales; \
-	for f in $${locales}/*.po; do \
-	    msgmerge -qUFN $$f $${locales}/schooltool.lyceum.journal.pot ;\
-	done
-	$(MAKE) compile-translations
 
 # Release
 
