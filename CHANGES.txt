@@ -2,15 +2,31 @@
 CHANGES
 =======
 
-1.7.0 (unreleased)
+1.7.0 (2011-09-15)
 ------------------
 
-- Drop dependencies:
-  - zope.app.zcmlfiles
-  - zope.app.rotterdam
-  - zope.app.zopeappgenerations
-  - zope.app.authentication
-  - zope.pluggableauth
+Release for Oneiric Beta 2.
+
+- No longer needed dependencies:
+
+  + zope.app.authentication
+  + zope.app.folder
+  + zope.app.i18n
+  + zope.app.rotterdam
+  + zope.app.zcmlfiles
+  + zope.app.zopeappgenerations
+  + zope.pluggableauth
+
+- Dependencies made optional:
+
+  + zope.app.apidoc
+  + zope.app.file
+  + zope.app.onlinehelp
+  + zope.app.preference
+  + zope.app.tree
+  + zope.preference
+
+- Use zope.testrunner separated from zope.testing
 
 
 1.6.0 (2011-04-26)
