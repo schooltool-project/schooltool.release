@@ -2,6 +2,15 @@
 CHANGES
 =======
 
+1.9.0 (2011-09-25)
+------------------
+
+Flourish alpha.
+
+First release of "flourish" summer sprint work, featuring a totally new user
+interface.
+
+
 1.7.0 (2011-09-15)
 ------------------
 
