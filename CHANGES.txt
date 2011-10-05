@@ -2,11 +2,12 @@
 CHANGES
 =======
 
-1.7.0 (2011-09-15)
+1.7.0 (2011-09-25)
 ------------------
 
-Release for Oneiric Beta 2.
+Final release for Oneiric
 
+- Removed Help.
 - No longer needed dependencies:
 
   + zope.app.authentication
