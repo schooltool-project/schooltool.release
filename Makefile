@@ -30,7 +30,7 @@ src/.bzr:
 
 .PHONY: develop
 develop: src/.bzr
-	$(MAKE) buildout BUILDOUT_FLAGS='-c development.cfg'
+	$(MAKE) buildout BUILDOUT_FLAGS='-c develop.cfg'
 
 $(PACKAGES): src/.bzr build
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
