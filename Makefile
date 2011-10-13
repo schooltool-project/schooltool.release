@@ -1,10 +1,7 @@
 #!/usr/bin/make
-#
-# Makefile for SchoolTool Release
-#
 
 DIST=/home/ftp/pub/schooltool/trunk
-BOOTSTRAP_PYTHON=python
+PYTHON=python
 
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
@@ -17,9 +14,13 @@ all: build
 .PHONY: build
 build: .installed.cfg
 
+python:
+	rm -rf python
+	virtualenv --no-site-packages -p $(PYTHON) python
+
 .PHONY: bootstrap
-bootstrap bin/buildout python:
-	$(BOOTSTRAP_PYTHON) bootstrap.py
+bootstrap bin/buildout: python
+	python/bin/python bootstrap.py
 
 .PHONY: buildout
 buildout .installed.cfg: python bin/buildout buildout.cfg schooltool.cfg community.cfg versions.cfg
@@ -191,5 +192,6 @@ move-release:
 .PHONY: ubuntu-environment
 ubuntu-environment:
 	sudo apt-get install bzr build-essential gettext enscript ttf-liberation \
-	    python-all-dev libc6-dev libicu-dev libxslt1-dev libfreetype6-dev libjpeg62-dev 
+	    python-all-dev python-virtualenv \
+	    libicu-dev libxslt1-dev libfreetype6-dev libjpeg62-dev
 
