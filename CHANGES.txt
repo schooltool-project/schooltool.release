@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+1.9.2 (unreleased)
+------------------
+
+- Make sandbox with virtualenv. Fixes bootstrap with Python 2.7.
+
+
 1.9.1 (2011-10-06)
 ------------------
 
