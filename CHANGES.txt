@@ -2,8 +2,10 @@
 CHANGES
 =======
 
-1.9.2 (unreleased)
+1.9.2 (2011-11-04)
 ------------------
+
+Flourish bugfixes.
 
 - Make sandbox with virtualenv. Fixes bootstrap with Python 2.7.
 
