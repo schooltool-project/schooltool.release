@@ -2,6 +2,14 @@
 CHANGES
 =======
 
+1.9.3 (2011-11-18)
+------------------
+
+Flourish release candidate.
+
+- Include Makefile in all releases.
+
+
 1.9.2 (2011-11-04)
 ------------------
 
