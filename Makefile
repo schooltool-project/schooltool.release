@@ -88,14 +88,13 @@ testall: build
 
 .PHONY: coverage
 coverage: build
-	test -d parts/test/coverage && ! test -d coverage && mv parts/test/coverage . || true
-	rm -rf coverage
+	rm -rf coverage parts/test/coverage
 	bin/test --at-level 2 -u --coverage=coverage
-	mv parts/test/coverage .
+	test -d coverage || mv parts/test/coverage .
 
 .PHONY: coverage-reports-html
 coverage-reports-html coverage/reports: build
-	test -d parts/test/coverage && ! test -d coverage && mv parts/test/coverage . || true
+	test -d coverage || $(MAKE) coverage
 	rm -rf coverage/reports
 	mkdir coverage/reports
 	bin/coverage coverage coverage/reports
@@ -112,14 +111,13 @@ publish-coverage-reports: coverage/reports
 
 .PHONY: ftest-coverage
 ftest-coverage: build
-	test -d parts/test/ftest-coverage && ! test -d ftest-coverage && mv parts/test/ftest-coverage . || true
-	rm -rf ftest-coverage
+	rm -rf ftest-coverage parts/test/ftest-coverage
 	bin/test --at-level 2 -f --coverage=ftest-coverage
-	mv parts/test/ftest-coverage .
+	test -d ftest-coverage || mv parts/test/ftest-coverage .
 
 .PHONY: ftest-coverage-reports-html
 ftest-coverage-reports-html ftest-coverage/reports: build
-	test -d parts/test/ftest-coverage && ! test -d ftest-coverage && mv parts/test/ftest-coverage . || true
+	test -d ftest-coverage || $(MAKE) ftest-coverage
 	rm -rf ftest-coverage/reports
 	mkdir ftest-coverage/reports
 	bin/coverage ftest-coverage ftest-coverage/reports
