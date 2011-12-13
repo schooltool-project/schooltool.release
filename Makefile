@@ -88,9 +88,8 @@ testall: build
 
 .PHONY: coverage
 coverage: build
-	rm -rf coverage parts/test/coverage
-	bin/test --at-level 2 -u --coverage=coverage
-	test -d coverage || mv parts/test/coverage .
+	rm -rf coverage
+	bin/test --at-level 2 -u --coverage=$(CURDIR)/coverage
 
 .PHONY: coverage-reports-html
 coverage-reports-html coverage/reports: build
@@ -111,9 +110,8 @@ publish-coverage-reports: coverage/reports
 
 .PHONY: ftest-coverage
 ftest-coverage: build
-	rm -rf ftest-coverage parts/test/ftest-coverage
-	bin/test --at-level 2 -f --coverage=ftest-coverage
-	test -d ftest-coverage || mv parts/test/ftest-coverage .
+	rm -rf ftest-coverage
+	bin/test --at-level 2 -f --coverage=$(CURDIR)/ftest-coverage
 
 .PHONY: ftest-coverage-reports-html
 ftest-coverage-reports-html ftest-coverage/reports: build
