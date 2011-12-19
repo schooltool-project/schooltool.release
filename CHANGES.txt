@@ -24,6 +24,7 @@ Flourish release candidate.
 Flourish bugfixes.
 
 - Make sandbox with virtualenv. Fixes bootstrap with Python 2.7.
+- Upgrade to zc.buildout 1.5
 
 
 1.9.1 (2011-10-06)
