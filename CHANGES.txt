@@ -2,6 +2,15 @@
 CHANGES
 =======
 
+2.0.1 (2011-12-22)
+------------------
+
+First bugfix release.
+
+- Sync versions with Precise Alpha 1.
+- Upgrade to zc.buildout 1.5
+
+
 2.0.0 (2011-11-23)
 ------------------
 
@@ -24,7 +33,6 @@ Flourish release candidate.
 Flourish bugfixes.
 
 - Make sandbox with virtualenv. Fixes bootstrap with Python 2.7.
-- Upgrade to zc.buildout 1.5
 
 
 1.9.1 (2011-10-06)
