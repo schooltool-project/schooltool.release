@@ -2,6 +2,14 @@
 CHANGES
 =======
 
+2.0.2 (2012-02-15)
+------------------
+
+- Sync versions with Precise Alpha 2.
+- Transition to zope.testbrowser 4.
+- Transition `z3c.*` libraries to versions that can use Chameleon 2.
+
+
 2.0.1 (2011-12-22)
 ------------------
 
