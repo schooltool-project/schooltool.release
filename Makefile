@@ -20,7 +20,7 @@ python:
 
 .PHONY: bootstrap
 bootstrap bin/buildout: python
-	python/bin/python bootstrap.py
+	python/bin/python bootstrap.py --distribute
 
 .PHONY: buildout
 buildout .installed.cfg: python bin/buildout buildout.cfg schooltool.cfg community.cfg versions.cfg
