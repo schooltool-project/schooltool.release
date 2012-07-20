@@ -19,19 +19,23 @@ python:
 	virtualenv --no-site-packages -p $(PYTHON) python
 
 .PHONY: bootstrap
-bootstrap bin/buildout: python
+bootstrap bin/buildout: python | buildout.cfg
 	python/bin/python bootstrap.py --distribute
 
+buildout.cfg:
+	cp deploy.cfg buildout.cfg
+
 .PHONY: buildout
-buildout .installed.cfg: python bin/buildout buildout.cfg schooltool.cfg community.cfg versions.cfg
+buildout .installed.cfg: python bin/buildout buildout.cfg base.cfg deploy.cfg develop.cfg schooltool.cfg community.cfg versions.cfg
 	bin/buildout $(BUILDOUT_FLAGS)
 
 src/.bzr:
 	bzr init-repo src
 
 .PHONY: develop
-develop: src/.bzr
-	$(MAKE) buildout BUILDOUT_FLAGS='-c develop.cfg'
+develop bin/coverage bin/ctags: | src/.bzr buildout.cfg
+	grep -q 'develop.cfg' buildout.cfg || sed -e 's/base.cfg/develop.cfg/' -i buildout.cfg
+	$(MAKE) buildout
 
 $(PACKAGES): src/.bzr build
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
@@ -49,13 +53,14 @@ run: build instance
 	bin/start-schooltool-instance instance
 
 .PHONY: tags
-tags: build
+tags: bin/tags
 	bin/ctags
 
 .PHONY: clean
 clean:
 	rm -rf python
 	rm -rf bin develop-eggs parts .installed.cfg
+	rm -f buildout.cfg
 	rm -rf build
 	rm -f ID TAGS tags
 	rm -rf coverage ftest-coverage

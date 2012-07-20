@@ -33,3 +33,4 @@
 ./ID
 ./instance
 ./.mr.developer.cfg
+./buildout.cfg
