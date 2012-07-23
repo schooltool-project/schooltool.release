@@ -60,7 +60,6 @@ tags: bin/tags
 clean:
 	rm -rf python
 	rm -rf bin develop-eggs parts .installed.cfg
-	rm -f buildout.cfg
 	rm -rf build
 	rm -f ID TAGS tags
 	rm -rf coverage ftest-coverage
@@ -70,6 +69,7 @@ clean:
 
 .PHONY: realclean
 realclean:
+	rm -f buildout.cfg
 	rm -rf eggs
 	rm -rf dist
 	rm -rf instance
