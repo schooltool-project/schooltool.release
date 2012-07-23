@@ -2,6 +2,15 @@
 CHANGES
 =======
 
+2.1.1 (unreleased)
+------------------
+
+Split buildout.cfg into base.cfg, deploy.cfg, and develop.cfg. By default,
+deploy.cfg is copied to buildout.cfg, that is enough to run schooltool from
+eggs. To checkout all the branches, and get all the developer tools, run `make
+develop`.
+
+
 2.1.0 (2012-04-19)
 ------------------
 
