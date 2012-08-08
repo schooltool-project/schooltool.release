@@ -53,7 +53,7 @@ run: build instance
 	bin/start-schooltool-instance instance
 
 .PHONY: tags
-tags: bin/tags
+tags: bin/ctags
 	bin/ctags
 
 .PHONY: clean
