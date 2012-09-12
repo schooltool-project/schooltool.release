@@ -35,7 +35,7 @@ src/.bzr:
 .PHONY: develop
 develop bin/coverage bin/ctags: | src/.bzr buildout.cfg
 	grep -q 'develop.cfg' buildout.cfg || sed -e 's/base.cfg/develop.cfg/' -i buildout.cfg
-	$(MAKE) buildout
+	$(MAKE)
 
 $(PACKAGES): src/.bzr build
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
@@ -43,7 +43,7 @@ $(PACKAGES): src/.bzr build
 .PHONY: update
 update: build
 	bin/develop update
-	bin/develop rebuild
+	$(MAKE)
 
 instance: | build
 	bin/make-schooltool-instance instance instance_type=$(INSTANCE_TYPE)
