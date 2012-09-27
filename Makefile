@@ -183,6 +183,10 @@ move-release:
 	done
 	cp -uv versions.cfg $(DIST)
 
+.PHONY: upload
+upload:
+	scp versions.cfg schooltool.org:$(DIST)
+
 # Helpers
 
 .PHONY: ubuntu-environment
