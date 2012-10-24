@@ -2,19 +2,34 @@
 CHANGES
 =======
 
-2.1.1 (unreleased)
+2.3.0 (2012-10-19)
 ------------------
 
-Split buildout.cfg into base.cfg, deploy.cfg, and develop.cfg. By default,
-deploy.cfg is copied to buildout.cfg, that is enough to run schooltool from
-eggs. To checkout all the branches, and get all the developer tools, run `make
-develop`.
+Final release for Quantal.
+
+New plugins
++++++++++++
+
+- https://launchpad.net/schooltool.ldap
+- https://launchpad.net/schooltool.cando (installed by default)
+- https://launchpad.net/schooltool.virginia
+
+
+2.1.1 (2012-08-16)
+------------------
+
+- Split buildout.cfg into base.cfg, deploy.cfg, and develop.cfg. By default,
+  deploy.cfg is copied to buildout.cfg, that is enough to run schooltool from
+  eggs. To checkout all the branches, and get all the developer tools, run
+  `make develop`.
+- Add PyVirtualDisplay and its dependencies to support running selenium tests in
+  headless mode.
 
 
 2.1.0 (2012-04-19)
 ------------------
 
-Final release for Precise
+Final release for Precise.
 
 
 2.0.3 (2012-03-20)
