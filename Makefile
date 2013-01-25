@@ -42,8 +42,8 @@ $(PACKAGES): src/.bzr build
 
 .PHONY: update
 update: build
-	bin/develop update
-	$(MAKE)
+	bin/develop update --force
+	$(MAKE) BUILDOUT_FLAGS=-n
 
 instance: | build
 	bin/make-schooltool-instance instance instance_type=$(INSTANCE_TYPE)
