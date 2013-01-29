@@ -5,12 +5,16 @@
 ./python
 ./src/.bzr
 ./src/schooltool
+./src/schooltool.cando
 ./src/schooltool.cas
 ./src/schooltool.commendation
 ./src/schooltool.devtools
 ./src/schooltool.gradebook
 ./src/schooltool.intervention
+./src/schooltool.ldap
 ./src/schooltool.lyceum.journal
+./src/schooltool.quiz
+./src/schooltool.virginia
 ./src/hurry.query
 ./src/zope.ucol
 ./src/z3c.autoinclude
