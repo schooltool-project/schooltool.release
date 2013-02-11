@@ -6,7 +6,7 @@ PYTHON=python
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
-PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.devtools
+PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.devtools src/schooltool.cando
 
 .PHONY: all
 all: build
@@ -159,6 +159,11 @@ compile-translations: $(PACKAGES)
 	for f in $${locales}/*.po; do \
 	    mkdir -p $${f%.po}/LC_MESSAGES; \
 	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.lyceum.journal.mo $$f;\
+	done
+	locales=src/schooltool.cando/src/schooltool/cando/locales; \
+	for f in $${locales}/*.po; do \
+	    mkdir -p $${f%.po}/LC_MESSAGES; \
+	    msgfmt -o $${f%.po}/LC_MESSAGES/schooltool.cando.mo $$f;\
 	done
 
 # Release
