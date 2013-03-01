@@ -35,7 +35,7 @@ src/.bzr:
 .PHONY: develop
 develop bin/coverage bin/ctags: | src/.bzr buildout.cfg
 	grep -q 'develop.cfg' buildout.cfg || sed -e 's/base.cfg/develop.cfg/' -i buildout.cfg
-	$(MAKE)
+	$(MAKE) BUILDOUT_FLAGS=-n
 
 $(PACKAGES): src/.bzr build
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
