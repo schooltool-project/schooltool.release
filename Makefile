@@ -41,7 +41,8 @@ $(PACKAGES): src/.bzr build
 	@test -d $@ || bin/develop co `echo $@ | sed 's,src/,,g'`
 
 .PHONY: update
-update: build
+update:
+	test -x bin/develop || $(MAKE) BUILDOUT_FLAGS=-n
 	bin/develop update --force
 	$(MAKE) BUILDOUT_FLAGS=-n
 
