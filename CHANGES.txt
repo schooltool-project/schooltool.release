@@ -2,10 +2,15 @@
 CHANGES
 =======
 
-2.3.2 (unreleased)
+2.4a2 (2013-02-19)
 ------------------
 
 - Sync versions with Raring Alpha 2.
+
+
+2.4a1 (2013-01-23)
+------------------
+
 - Removed dependency on zope.app.content
 
 - Removed optional dependencies:
