@@ -19,7 +19,7 @@ python:
 	virtualenv --no-site-packages -p $(PYTHON) python
 
 .PHONY: bootstrap
-bootstrap bin/buildout: python | buildout.cfg
+bootstrap bin/buildout: | python buildout.cfg
 	python/bin/python bootstrap.py --distribute
 
 buildout.cfg:

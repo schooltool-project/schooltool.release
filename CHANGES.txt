@@ -2,6 +2,13 @@
 CHANGES
 =======
 
+2.4b1 (unreleased)
+------------------
+
+- Local buildout.cfg
+- Update to zc.buildout 1.7.1
+
+
 2.4a2 (2013-02-19)
 ------------------
 
