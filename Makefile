@@ -98,7 +98,7 @@ coverage: build
 	bin/test --at-level 2 -u --coverage=$(CURDIR)/coverage
 
 .PHONY: coverage-reports-html
-coverage-reports-html coverage/reports: build
+coverage-reports-html coverage/reports: bin/coverage
 	test -d coverage || $(MAKE) coverage
 	rm -rf coverage/reports
 	mkdir coverage/reports
@@ -120,7 +120,7 @@ ftest-coverage: build
 	bin/test --at-level 2 -f --coverage=$(CURDIR)/ftest-coverage
 
 .PHONY: ftest-coverage-reports-html
-ftest-coverage-reports-html ftest-coverage/reports: build
+ftest-coverage-reports-html ftest-coverage/reports: bin/coverage
 	test -d ftest-coverage || $(MAKE) ftest-coverage
 	rm -rf ftest-coverage/reports
 	mkdir ftest-coverage/reports
