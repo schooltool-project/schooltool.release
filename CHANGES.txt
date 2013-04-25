@@ -2,11 +2,22 @@
 CHANGES
 =======
 
-2.4b1 (unreleased)
+2.4.0 (2013-04-19)
 ------------------
 
-- Local buildout.cfg
+Final release for Raring
+
+- Compatible with reportlab 2.6 / z3c.rml 2.0.0
+- Remove rwproperty dependency
+- Remove zope.app.server dependency
+
+
+2.4b1 (2013-04-17)
+------------------
+
+- Local buildout.cfg.  Your changes to buildout.cfg will not be committed.
 - Update to zc.buildout 1.7.1
+- Remove hurry.query dependency
 
 
 2.4a2 (2013-02-19)

@@ -38,3 +38,5 @@
 ./instance
 ./.mr.developer.cfg
 ./buildout.cfg
+./src/zope.file
+./src/zope.html
