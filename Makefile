@@ -1,6 +1,6 @@
 #!/usr/bin/make
 
-DIST=/home/ftp/pub/schooltool/flourish
+DIST=/home/ftp/pub/schooltool/trunk
 PYTHON=python
 
 INSTANCE_TYPE=schooltool
@@ -191,7 +191,7 @@ move-release:
 
 .PHONY: upload
 upload:
-	scp versions.cfg schooltool.org:$(DIST)
+	scp versions.cfg ftp.schooltool.org:$(DIST)
 
 # Helpers
 
