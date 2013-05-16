@@ -6,7 +6,7 @@ PYTHON=python
 INSTANCE_TYPE=schooltool
 BUILDOUT_FLAGS=
 
-PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.devtools src/schooltool.cando
+PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.devtools src/schooltool.cando src/schooltool.virginia
 
 .PHONY: all
 all: build
