@@ -2,6 +2,48 @@
 CHANGES
 =======
 
+2.5.0 (2013-07-03)
+------------------
+
+Server
+++++++
+
+There are now 4 processes, controlled by a ``supervisor`` daemon:
+
+  + `schooltool`    - schooltool web application
+  + `zeo` - ``ZEO`` server allows many clients to use the same ``ZODB`` storage
+  + `celery_report` - a ``celery`` task queue that generates reports
+  + `redis`         - a simple key-value database for ``celery``
+
+New ``make`` targets:
+
+
+  + start       - start all processes as daemons
+  + stop        - stop all processes
+  + restart     - restart `schooltool` and `celery` processes
+  + rerun       - stop `schooltool` and run again in the foreground. restarts `celery`
+  + status      - status of all processes
+
+Upgrade notes
++++++++++++++
+
+`Redis` server is written in C and needs to be installed separately. On Ubuntu
+or Debian::
+
+    $ sudo apt-get install redis-server
+
+Instances have to be updated to run this version. If you run from a sandbox::
+
+    $ bin/make-schooltool-instance instance
+
+Ubuntu package ``schooltool`` contains updated configuration files. If they have
+been modified, you may be asked how to handle the conflicts. So it is
+recommended to upgrade it in the terminal::
+
+    $ sudo apt-get update
+    $ sudo apt-get install schooltool
+
+
 2.4.0 (2013-04-19)
 ------------------
 
