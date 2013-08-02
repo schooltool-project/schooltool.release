@@ -2,6 +2,14 @@
 CHANGES
 =======
 
+2.5.1 (2013-08-02)
+------------------
+
+- Permissions remap
+- Journal split
+- Journal score systems
+
+
 2.5.0 (2013-07-03)
 ------------------
 
