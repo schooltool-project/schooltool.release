@@ -2,10 +2,21 @@
 CHANGES
 =======
 
+2.5.2 (2013-08-23)
+------------------
+
+Saucy Beta
+
+- Fix access to parts of the school for clerks, administrators, and managers.
+- Update GPL license and file headers from gnu.org (https://launchpad.net/bugs/1211145)
+
+
 2.5.1 (2013-08-02)
 ------------------
 
-- Permissions remap
+Saucy alpha
+
+- Differentiate permissions of clerks, administrators, and managers.
 - Journal split
 - Journal score systems
 
