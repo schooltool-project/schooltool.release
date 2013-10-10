@@ -2,6 +2,16 @@
 CHANGES
 =======
 
+2.6.0 (2013-10-10)
+------------------
+
+Final release for Saucy
+
+- Name order setting and column split.
+- Navigation inside School tab when non-active school year is selected.
+- Tracebacks can now be submitted to the correct project in Launchpad.
+
+
 2.5.3 (2013-09-12)
 ------------------
 
