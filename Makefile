@@ -2,9 +2,11 @@
 
 DIST=/home/ftp/pub/schooltool/trunk
 PYTHON=python
+BUILDOUT_FLAGS=
 
 INSTANCE_TYPE=schooltool
-BUILDOUT_FLAGS=
+INSTANCE=instance
+SUPERVISOR_CONF=-c $(INSTANCE)/supervisord.conf
 
 PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.devtools src/schooltool.cando src/schooltool.virginia
 
@@ -46,55 +48,55 @@ update:
 	bin/develop update --force
 	$(MAKE) BUILDOUT_FLAGS=-n
 
-instance: | build
-	bin/make-schooltool-instance instance instance_type=$(INSTANCE_TYPE)
+$(INSTANCE): | build
+	bin/make-schooltool-instance $(INSTANCE) instance_type=$(INSTANCE_TYPE)
 
-instance/run/supervisord.pid:
-	bin/supervisord
+$(INSTANCE)/run/supervisord.pid:
+	bin/supervisord $(SUPERVISOR_CONF)
 
 .PHONY: run
-run: build instance instance/run/supervisord.pid
-	@bin/supervisorctl start "services:*"
-	@bin/supervisorctl status schooltool | grep RUNNING && bin/supervisorctl stop schooltool || exit 0
-	@bin/supervisorctl status
-	bin/start-schooltool-instance instance
+run: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
+	@bin/supervisorctl $(SUPERVISOR_CONF) start "services:*"
+	@bin/supervisorctl $(SUPERVISOR_CONF) status schooltool | grep RUNNING && bin/supervisorctl $(SUPERVISOR_CONF) stop schooltool || exit 0
+	@bin/supervisorctl $(SUPERVISOR_CONF) status
+	bin/start-schooltool-instance $(INSTANCE)
 
 .PHONY: start
-start: build instance instance/run/supervisord.pid
-	bin/supervisorctl start all
-	@bin/supervisorctl status
+start: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
+	bin/supervisorctl $(SUPERVISOR_CONF) start all
+	@bin/supervisorctl $(SUPERVISOR_CONF) status
 
 .PHONY: start-services
-start-services: build instance instance/run/supervisord.pid
-	@bin/supervisorctl status | grep services[:] | grep -v RUNNING && bin/supervisorctl start "services:*" || exit 0
-	@bin/supervisorctl status | grep services[:]
+start-services: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
+	@bin/supervisorctl $(SUPERVISOR_CONF) status | grep services[:] | grep -v RUNNING && bin/supervisorctl $(SUPERVISOR_CONF) start "services:*" || exit 0
+	@bin/supervisorctl $(SUPERVISOR_CONF) status | grep services[:]
 
 .PHONY: restart
-restart: build instance instance/run/supervisord.pid
-	@bin/supervisorctl restart "services:celery_report"
-	@bin/supervisorctl start "services:*"
-	bin/supervisorctl restart schooltool
-	@bin/supervisorctl status
+restart: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
+	@bin/supervisorctl $(SUPERVISOR_CONF) restart "services:celery_report"
+	@bin/supervisorctl $(SUPERVISOR_CONF) start "services:*"
+	bin/supervisorctl $(SUPERVISOR_CONF) restart schooltool
+	@bin/supervisorctl $(SUPERVISOR_CONF) status
 
 .PHONY: rerun
-rerun: build instance instance/run/supervisord.pid
-	@bin/supervisorctl restart "services:celery_report"
-	@bin/supervisorctl start "services:*"
-	@bin/supervisorctl status schooltool | grep RUNNING && bin/supervisorctl stop schooltool || exit 0
-	@bin/supervisorctl status
-	bin/start-schooltool-instance instance
+rerun: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
+	@bin/supervisorctl $(SUPERVISOR_CONF) restart "services:celery_report"
+	@bin/supervisorctl $(SUPERVISOR_CONF) start "services:*"
+	@bin/supervisorctl $(SUPERVISOR_CONF) status schooltool | grep RUNNING && bin/supervisorctl $(SUPERVISOR_CONF) stop schooltool || exit 0
+	@bin/supervisorctl $(SUPERVISOR_CONF) status
+	bin/start-schooltool-instance $(INSTANCE)
 
 .PHONY: stop
 stop:
-	@test -S instance/run/supervisord.sock && bin/supervisorctl status | grep -v STOPPED && bin/supervisorctl stop all || exit 0
-	@test -S instance/run/supervisord.sock && bin/supervisorctl shutdown || echo Nothing to stop
-	@rm -f instance/run/zeo.sock
-	@rm -f instance/run/supervisord.sock
-	@rm -f instance/run/supervisord.pid
+	@test -S $(INSTANCE)/run/supervisord.sock && bin/supervisorctl $(SUPERVISOR_CONF) status | grep -v STOPPED && bin/supervisorctl $(SUPERVISOR_CONF) stop all || exit 0
+	@test -S $(INSTANCE)/run/supervisord.sock && bin/supervisorctl $(SUPERVISOR_CONF) shutdown || echo Nothing to stop
+	@rm -f $(INSTANCE)/run/zeo.sock
+	@rm -f $(INSTANCE)/run/supervisord.sock
+	@rm -f $(INSTANCE)/run/supervisord.pid
 
 .PHONY: status
 status:
-	@test -f instance/run/supervisord.pid && bin/supervisorctl status || echo All services shut down
+	@test -f $(INSTANCE)/run/supervisord.pid && bin/supervisorctl $(SUPERVISOR_CONF) status || echo All services shut down
 
 .PHONY: tags
 tags: bin/ctags
@@ -107,12 +109,12 @@ clean: stop
 	rm -rf build
 	rm -f ID TAGS tags
 	rm -rf coverage ftest-coverage
-	rm -rf instance/var/celerybeat-schedule
-	rm -rf instance/var/redis-dump.rdb
-	rm -rf instance/run/zeo.sock
-	rm -rf instance/run/supervisord.sock
-	rm -rf instance/run/supervisord.pid
-	rm -rf instance/var/Data.fs.lock
+	rm -rf $(INSTANCE)/var/celerybeat-schedule
+	rm -rf $(INSTANCE)/var/redis-dump.rdb
+	rm -rf $(INSTANCE)/run/zeo.sock
+	rm -rf $(INSTANCE)/run/supervisord.sock
+	rm -rf $(INSTANCE)/run/supervisord.pid
+	rm -rf $(INSTANCE)/var/Data.fs.lock
 	find . -name '*.py[co]' -delete
 	find . -name '*.mo' -delete
 	find . -name 'LC_MESSAGES' -exec rmdir -p --ignore-fail-on-non-empty {} +
@@ -122,7 +124,7 @@ realclean: stop
 	rm -f buildout.cfg
 	rm -rf eggs
 	rm -rf dist
-	rm -rf instance
+	rm -rf $(INSTANCE)
 	$(MAKE) clean
 
 # Tests
