@@ -6,7 +6,8 @@ BUILDOUT_FLAGS=
 
 INSTANCE_TYPE=schooltool
 INSTANCE=instance
-SUPERVISOR_CONF=-c $(INSTANCE)/supervisord.conf
+SUPERVISOR_CONF:=-c $(INSTANCE)/supervisord.conf
+REDIS_PORT:=$$(grep ^port $(INSTANCE)/redis.conf | cut -d' ' -f 2)
 
 PACKAGES=src/schooltool src/schooltool.gradebook src/schooltool.intervention src/schooltool.lyceum.journal src/schooltool.devtools src/schooltool.cando src/schooltool.virginia
 
@@ -59,7 +60,7 @@ run: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
 	@bin/supervisorctl $(SUPERVISOR_CONF) start "services:*"
 	@bin/supervisorctl $(SUPERVISOR_CONF) status schooltool | grep RUNNING && bin/supervisorctl $(SUPERVISOR_CONF) stop schooltool || exit 0
 	@bin/supervisorctl $(SUPERVISOR_CONF) status
-	bin/start-schooltool-instance $(INSTANCE)
+	REDIS_PORT=$(REDIS_PORT) bin/start-schooltool-instance $(INSTANCE)
 
 .PHONY: start
 start: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
@@ -84,7 +85,7 @@ rerun: build $(INSTANCE) $(INSTANCE)/run/supervisord.pid
 	@bin/supervisorctl $(SUPERVISOR_CONF) start "services:*"
 	@bin/supervisorctl $(SUPERVISOR_CONF) status schooltool | grep RUNNING && bin/supervisorctl $(SUPERVISOR_CONF) stop schooltool || exit 0
 	@bin/supervisorctl $(SUPERVISOR_CONF) status
-	bin/start-schooltool-instance $(INSTANCE)
+	REDIS_PORT=$(REDIS_PORT) bin/start-schooltool-instance $(INSTANCE)
 
 .PHONY: stop
 stop:
