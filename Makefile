@@ -23,7 +23,7 @@ python:
 
 .PHONY: bootstrap
 bootstrap bin/buildout: | python buildout.cfg
-	python/bin/python bootstrap.py --distribute
+	python/bin/python bootstrap.py
 
 buildout.cfg:
 	cp deploy.cfg buildout.cfg
