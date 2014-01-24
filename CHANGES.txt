@@ -349,8 +349,7 @@ First stable release in 1.4 series for Lucid.
 - Update make ubuntu-environment to install needed deps (LP: #507882).
 - Include compiled translations in released eggs again.
 - Make sure checkouts exist before updating them.
-- Functional test coverage is now published nightly to
-  http://schooltool.pov.lt/ftest-coverage/schooltool_trunk/
+- Functional test coverage is now published nightly.
 
 
 1.3.0 (2010-01-06)

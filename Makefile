@@ -1,6 +1,6 @@
 #!/usr/bin/make
 
-DIST=/home/ftp/pub/schooltool/trunk
+DIST=/home/ftp/pub/schooltool/2.6
 PYTHON=python
 BUILDOUT_FLAGS=
 
