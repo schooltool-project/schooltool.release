@@ -2,6 +2,15 @@
 CHANGES
 =======
 
+2.6.3 "trusty" (2014-04-12)
+===========================
+
+Final release for Ubuntu 14.04 LTS
+
+- Switch to CKEditor
+- Celery 3 support
+
+
 2.6.2 (2014-02-15)
 ------------------
 
@@ -14,8 +23,8 @@ February bugfixes
 Saucy bugfixes
 
 
-2.6.0 (2013-10-10)
-------------------
+2.6.0 "saucy" (2013-10-10)
+--------------------------
 
 Final release for Saucy
 
