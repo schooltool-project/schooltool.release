@@ -2,8 +2,29 @@
 CHANGES
 =======
 
-2.6.0 (2013-10-10)
+2.6.3 "trusty" (2014-04-12)
+===========================
+
+Final release for Ubuntu 14.04 LTS
+
+- Switch to CKEditor
+- Celery 3 support
+
+
+2.6.2 (2014-02-15)
 ------------------
+
+February bugfixes
+
+
+2.6.1 (2013-11-24)
+------------------
+
+Saucy bugfixes
+
+
+2.6.0 "saucy" (2013-10-10)
+--------------------------
 
 Final release for Saucy
 
@@ -349,8 +370,7 @@ First stable release in 1.4 series for Lucid.
 - Update make ubuntu-environment to install needed deps (LP: #507882).
 - Include compiled translations in released eggs again.
 - Make sure checkouts exist before updating them.
-- Functional test coverage is now published nightly to
-  http://schooltool.pov.lt/ftest-coverage/schooltool_trunk/
+- Functional test coverage is now published nightly.
 
 
 1.3.0 (2010-01-06)
