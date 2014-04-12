@@ -2,8 +2,14 @@
 CHANGES
 =======
 
+2.7.0 (2014-04-12)
+------------------
+
+Preview of the new relationships
+
+
 2.6.3 "trusty" (2014-04-12)
-===========================
+---------------------------
 
 Final release for Ubuntu 14.04 LTS
 
