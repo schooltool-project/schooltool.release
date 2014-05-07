@@ -2,8 +2,15 @@
 CHANGES
 =======
 
+2.8.0 (2014-05-08)
+------------------
+
+Public release with new relationships, transcript reports
+
+
 2.6.4 (2014-05-05)
 ------------------
+
 Trusty bugfixes
 
 
